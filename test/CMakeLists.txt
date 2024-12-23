@@ -6,7 +6,7 @@ project(ebmTests LANGUAGES CXX)
 
 # ---- Tests ----
 
-add_executable(ebm_test source/ebm_test.cpp)
+add_executable(ebm_test src/ebm_test.cpp)
 target_link_libraries(ebm_test PRIVATE ebm_lib)
 target_compile_features(ebm_test PRIVATE cxx_std_11)
 

@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.20)
 
 include(cmake/prelude.cmake)
 
 project(
     ebm
     VERSION 0.1.0
-    DESCRIPTION "Explorator Belli Mechani (ebm) is a Monte-Caengine/simulator/analyzer for the game 'Mechabellum' by game-river / paradox."
+    DESCRIPTION "Explorator Belli Mechani (ebm) is a Monte-Carlo-based engine/simulator/analyzer for the game 'Mechabellum' by game-river / paradox."
     HOMEPAGE_URL "https://example.com/"
     LANGUAGES CXX
 )
@@ -15,22 +15,24 @@ include(cmake/variables.cmake)
 
 # ---- Declare library ----
 
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
 add_library(
     ebm_lib OBJECT
-    source/lib.cpp
+    src/lib.cpp
 )
 
 target_include_directories(
     ebm_lib ${warning_guard}
     PUBLIC
-    "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source>"
+    "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>"
 )
 
 target_compile_features(ebm_lib PUBLIC cxx_std_11)
 
 # ---- Declare executable ----
 
-add_executable(ebm_exe source/main.cpp)
+add_executable(ebm_exe src/main.cpp src/gui.cpp src/mechs.cpp src/board.cpp src/item.cpp)
 add_executable(ebm::exe ALIAS ebm_exe)
 
 set_property(TARGET ebm_exe PROPERTY OUTPUT_NAME ebm)
@@ -38,6 +40,7 @@ set_property(TARGET ebm_exe PROPERTY OUTPUT_NAME ebm)
 target_compile_features(ebm_exe PRIVATE cxx_std_11)
 
 target_link_libraries(ebm_exe PRIVATE ebm_lib)
+target_link_libraries(ebm_exe PRIVATE Qt6::Core Qt6::Widgets)
 
 # ---- Install rules ----
 
