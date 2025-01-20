@@ -1,6 +1,7 @@
 set(
     FORMAT_PATTERNS
     src/*.cpp src/*.h
+    src/mechs/*.cpp src/mechs/*.h
     include/*.h
     test/*.cpp test/*.h
     CACHE STRING

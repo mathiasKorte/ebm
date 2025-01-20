@@ -2,6 +2,10 @@
 
 This is the ebm project.
 
+current state:
+![Project Preview](https://github.com/mathiasKorte/ebm/blob/master/show.gif)
+
+
 # Building and installing
 
 See the [BUILDING](BUILDING.md) document.

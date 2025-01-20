@@ -1,10 +1,8 @@
 #pragma once
-#include <string>
-
-class Mech;
+#include "common.h"
 
 class Item
 {
   public:
-std::string string = " ";
+    std::string string = " ";
 };

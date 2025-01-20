@@ -12,10 +12,10 @@
  */
 struct library
 {
-  /**
-   * @brief Simply initializes the name member to the name of the project
-   */
-  library();
+    /**
+     * @brief Simply initializes the name member to the name of the project
+     */
+    library();
 
-  std::string name;
+    std::string name;
 };

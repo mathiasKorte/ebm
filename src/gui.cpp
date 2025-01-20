@@ -1,6 +1,17 @@
 #include "gui.h"
 
-#include "mechs.h"
+#include "mechs/meltingpoint.h"
+
+#define BOARD_X 72.0
+#define BOARD_Y 60.0
+#define BOARD_SIDE 6.0
+#define ZOOM_BOARDER 2.0
+
+int int1(double d)
+{
+    int i = static_cast<int>(d);
+    return i + (i == 0);
+}
 
 Gui::Gui(Board* _board)
 {
@@ -8,116 +19,304 @@ Gui::Gui(Board* _board)
 
     setWindowTitle("Explorator Belli Mechani");
     setStyleSheet("background-color: black;");
-    setMinimumSize(400, 400);
-    resize(1000, 1000);
+    setMinimumSize(100, int1(100 * BOARD_Y / BOARD_X));
+    resize(1500, int1(1500 * BOARD_Y / BOARD_X));
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Gui::onUpdate);
-    timer->start(10);
-}
-
-// void Gui::resizeEvent(QResizeEvent* event)
-// {
-//     // Ensure the content area stays square, based on the current window size
-//     int windowWidth = event->size().width();
-//     int windowHeight = event->size().height();
-
-//     // Set the side of the square content area to the smaller of width or
-//     height int contentSize = std::min(windowWidth, windowHeight);
-//     setFixedSize(contentSize, contentSize);  // Keep the window square
-
-//     // Ensure that the content fits within the window size
-//     contentArea = QRect(0, 0, contentSize, contentSize);
-
-//     // QWidget::resizeEvent(event);  // Call base class resizeEvent
-//     update();
-// }
-
-void Gui::resizeEvent(QResizeEvent* event)
-{
-    // Ensure the content area stays square, based on the current window size
-    int windowWidth = event->size().width();
-    int windowHeight = event->size().height();
-
-    // Set the side of the square content area to the smaller of width or height
-    int contentSize = std::min(windowWidth, windowHeight);
-
-    // Define the content area as a square based on the smaller of the window's
-    // width or height
-    contentArea = QRect(0, 0, contentSize, contentSize);
-
-    // Optional: Restrict minimum window size if needed
-    setMinimumSize(400, 400);  // Uncomment if you want to set a minimum size
-
-    // Optional: Restrict maximum window size if needed
-    // setMaximumSize(windowWidth, windowHeight);  // Uncomment if needed
-
-    update();  // Redraw the content
-}
-
-void Gui::paintEvent(QPaintEvent*)
-{
-    QPainter painter(this);
-
-    painter.setRenderHint(QPainter::Antialiasing);
-
-    // int width = contentArea.width();
-    // int height = contentArea.height();
-
-    painter.translate(contentArea.topLeft());
-
-    int squareSize = std::min(width(), height());
-    double scale = ((double)squareSize) / 1000.0;
-    painter.setPen(QPen(Qt::white, 5));
-    painter.drawRect(0, 0, squareSize, squareSize);
-
-    for (Mech* mech : board->mechs)
-    {
-        int x = static_cast<int>(mech->x * scale);
-        int y = static_cast<int>(mech->y * scale);
-
-        QPoint point(x, y);
-
-        painter.save();
-        painter.translate(point);
-
-        double angle = mech->calcTargetAngle();
-        painter.rotate(angle);
-
-        int size = static_cast<int>(mech->size * scale);
-
-        QRectF rect(
-            -size * 0.95, -size * 0.95, size * 0.95 * 2, size * 0.95 * 2);
-        painter.setPen(QPen(Qt::green, 1.5));
-        painter.drawArc(rect, 0, 360 * mech->hp / mech->hpMax * 16);
-        // painter.setPen(QPen(mech->team == TEAM_RED ? Qt::red :
-        // Qt::blue, 1.5));
-        painter.setPen(QPen(Qt::white, 1.5));
-        painter.drawEllipse(QPoint(0, 0), size, size);
-
-        QFont font = painter.font();
-        font.setPixelSize(size * 1.1);
-        painter.setFont(font);
-        painter.rotate(90);
-        QRectF textRect(-size, -size, size * 2, size * 2);
-        QRectF textRect2(size / 4, -size / 4 * 3, size, size);
-        QRectF textRect3(size / 4, -size / 4 * 1, size, size);
-
-        painter.setPen(QPen(Qt::white, 1));
-        painter.drawText(textRect, Qt::AlignCenter, QString::fromStdString(mech->string));
-
-        font.setPixelSize(size * 1.1 / 2);
-        painter.setFont(font);
-        painter.drawText(
-            textRect2, Qt::AlignCenter, QString::number(mech->lvl));
-        painter.drawText(textRect3, Qt::AlignCenter, " ");
-        painter.restore();
-    }
+    timer->start(100.0);
 }
 
 void Gui::onUpdate()
 {
-    t += 1.0;
     board->step();
     update();
+}
+
+void Gui::resizeEvent(QResizeEvent* event)
+{
+    double windowWidth = static_cast<double>(event->size().width());
+    double windowHeight = static_cast<double>(event->size().height());
+
+    windowScale = std::min(windowWidth / BOARD_X, windowHeight / BOARD_Y);
+    windowSize = Eigen::Vector2d(BOARD_X, BOARD_Y) * windowScale;
+    windowShift = -Eigen::Vector2d(0, 0);
+
+    update();
+}
+
+double Gui::distQtMech(QPoint qt, Mech* mech)
+{
+    if (mech == nullptr)
+        return std::numeric_limits<double>::max();
+
+    QPoint d = convPoint(mech->position) - qt;
+    return std::sqrt(d.x() * d.x() + d.y() * d.y());
+}
+
+void Gui::mousePressEvent(QMouseEvent* event)
+{
+    QPoint mousePos = event->pos();
+    focusedMech = nullptr;
+
+    for (Mech* mech : board->mechs)
+        if (distQtMech(mousePos, mech) < distQtMech(mousePos, focusedMech))
+            focusedMech = mech;
+
+    update();
+}
+
+double Gui::convAngle(double angle)
+{
+    return angle * 360.0 / (2.0 * PI);
+}
+
+QPoint Gui::convPoint(Eigen::Vector2d vec)
+{
+    vec += getShift();
+    vec *= getScale();
+    vec = clampVector(vec, Eigen::Vector2d(0, 0), windowSize);
+    return QPoint(vec.x(), vec.y());
+}
+
+double Gui::getScale()
+{
+    return zoomScale * windowScale;
+}
+Eigen::Vector2d Gui::getShift()
+{
+    return zoomShift + windowShift;
+}
+
+void Gui::paintEvent(QPaintEvent*)
+{
+    calcZoom(true);
+    drawBoard();
+    // drawUnits();
+    drawWeapons();
+    drawMechs();
+}
+
+void Gui::calcZoom(bool zoom)
+{
+    if (zoom)
+    {
+        double minX = std::numeric_limits<double>::max();
+        double maxX = std::numeric_limits<double>::lowest();
+        double minY = std::numeric_limits<double>::max();
+        double maxY = std::numeric_limits<double>::lowest();
+
+        for (Mech* mech : board->mechs)
+        {
+            double size = mech->getRadius() + ZOOM_BOARDER;
+
+            minX = std::min(minX, mech->position.x() - size);
+            maxX = std::max(maxX, mech->position.x() + size);
+            minY = std::min(minY, mech->position.y() - size);
+            maxY = std::max(maxY, mech->position.y() + size);
+        }
+
+        zoomScale = std::min(BOARD_X / (maxX - minX), BOARD_Y / (maxY - minY));
+        zoomShift = -Eigen::Vector2d(minX, minY);
+    } else
+    {
+        zoomScale = 1.0;
+        zoomShift = Eigen::Vector2d(0, 0);
+    }
+}
+
+void Gui::drawLineFromVectors(QPainter& painter,
+                              Eigen::Vector2d p1,
+                              Eigen::Vector2d p2)
+{
+    QPoint q1 = convPoint(p1);
+    QPoint q2 = convPoint(p2);
+    painter.drawLine(q1.x(), q1.y(), q2.x(), q2.y());
+}
+
+void Gui::drawRectFromVectors(QPainter& painter,
+                              Eigen::Vector2d p1,
+                              Eigen::Vector2d p2)
+{
+    drawLineFromVectors(painter, p1, Eigen::Vector2d(p1.x(), p2.y()));
+    drawLineFromVectors(painter, Eigen::Vector2d(p1.x(), p2.y()), p2);
+    drawLineFromVectors(painter, p2, Eigen::Vector2d(p2.x(), p1.y()));
+    drawLineFromVectors(painter, Eigen::Vector2d(p2.x(), p1.y()), p1);
+}
+
+void Gui::drawBoard()
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(Qt::white, 5));
+
+    painter.drawRect(0, 0, windowSize.x(), windowSize.y());
+    drawRectFromVectors(
+        painter, Eigen::Vector2d(0, 0), Eigen::Vector2d(BOARD_X, BOARD_Y));
+
+    painter.setPen(QPen(Qt::white, 1));
+    drawLineFromVectors(painter,
+                        Eigen::Vector2d(0, BOARD_Y * 0.5),
+                        Eigen::Vector2d(BOARD_X, BOARD_Y * 0.5));
+    drawLineFromVectors(painter,
+                        Eigen::Vector2d(BOARD_SIDE, 0),
+                        Eigen::Vector2d(BOARD_SIDE, BOARD_Y));
+    drawLineFromVectors(painter,
+                        Eigen::Vector2d(BOARD_X - BOARD_SIDE, 0),
+                        Eigen::Vector2d(BOARD_X - BOARD_SIDE, BOARD_Y));
+
+    painter.setPen(QPen(Qt::darkGray, 1));
+    for (int i = 0; i < BOARD_X; i++)
+        drawLineFromVectors(
+            painter, Eigen::Vector2d(i, 0), Eigen::Vector2d(i, BOARD_Y));
+    for (int i = 0; i < BOARD_Y; i++)
+        drawLineFromVectors(
+            painter, Eigen::Vector2d(0, i), Eigen::Vector2d(BOARD_X, i));
+}
+
+void Gui::drawUnits()
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(Qt::white, 1));
+
+    for (Unit* unit : board->units)
+        drawRectFromVectors(painter,
+                            unit->position.cast<double>(),
+                            (unit->position + unit->getSize()).cast<double>());
+}
+
+void Gui::drawMechs()
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(Qt::white, 1));
+
+    for (Mech* mech : board->mechs)
+    {
+        QPoint point = convPoint(mech->position);
+
+        painter.save();
+        painter.translate(point);
+
+        painter.rotate(convAngle(mech->angle));
+
+        double size = mech->getRadius() * getScale();
+
+        painter.drawEllipse(QPoint(0, 0), int1(size), int1(size));
+
+        QRectF rect(
+            -size * 0.97, -size * 0.97, size * 0.97 * 2, size * 0.97 * 2);
+        painter.setPen(QPen(mech->team == TEAM_RED ? Qt::red : Qt::green, 5.0));
+        if (focusedMech != nullptr)
+            for (Weapon* weapon : focusedMech->weapons)
+                if (mech == weapon->target)
+                    painter.setPen(
+                        QPen(mech->team == TEAM_RED ? Qt::red : Qt::green, 5));
+        painter.drawArc(rect, 0, int1(360 * mech->hp / mech->hpMax * 16));
+        painter.setPen(QPen(Qt::white, 2.0));
+
+        painter.drawEllipse(QPoint(0, 0), int1(size), int1(size));
+
+        QFont font = painter.font();
+        font.setPixelSize(int1(size * (1.0 + (mech->getString().size() == 1))));
+        font.setStretch(QFont::Condensed);
+        painter.setFont(font);
+        painter.rotate(90);
+
+        QRectF textRect(-size, -size, size * 2, size * 2);
+        QRectF textRect2(size / 4 * 0, -size / 4 * 3, size, size);
+        QRectF textRect3(size / 4 * 0, -size / 4 * 1, size, size);
+
+        painter.setPen(QPen(Qt::white, 1));
+        painter.drawText(textRect,
+                         Qt::AlignCenter,
+                         QString::fromStdString(mech->getString()));
+
+        font.setPixelSize(
+            int1(size * (1.0 + (mech->getString().size() == 1)) / 2.0));
+        font.setStretch(QFont::Condensed);
+        painter.setFont(font);
+        if (mech->lvl != 1)
+            painter.drawText(
+                textRect2, Qt::AlignCenter, QString::number(mech->lvl));
+        painter.drawText(textRect3, Qt::AlignCenter, " ");
+
+        painter.restore();
+    }
+}
+
+void Gui::drawWeapons()
+{
+    QPolygonF triangleBase;
+    triangleBase << QPointF(0, -1)
+                 << QPointF(-qSin(PI / 3) / 2.0, qCos(PI / 3) / 2.0)
+                 << QPointF(qSin(PI / 3) / 2.0, qCos(PI / 3) / 2.0);
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(Qt::white, 1));
+    painter.setClipRect(QRect(0, 0, windowSize.x(), windowSize.y()));
+    // painter.setBrush(Qt::darkGray);
+
+    for (Mech* mech : board->mechs)
+    {
+        QTransform transform;
+        transform.scale(getScale() / 2.0 * mech->getRadius(),
+                        getScale() / 2.0 * mech->getRadius());
+        QPolygonF triangle = transform.map(triangleBase);
+
+        for (Weapon* weapon : mech->weapons)
+        {
+            if (dynamic_cast<LaserWeapon*>(weapon)
+                && (weapon->target != nullptr) && weapon->inTargetRange())
+            {
+                painter.save();
+                painter.setPen(QPen(QColor("turquoise"), 3));
+                drawLineFromVectors(
+                    painter, weapon->getPosition(), weapon->target->position);
+                painter.restore();
+            }
+            if (!dynamic_cast<MeltingPointSpawnerWeapon*>(weapon))
+            {
+                QPoint point = convPoint(weapon->getPosition());
+
+                painter.save();
+                painter.translate(point);
+                painter.rotate(convAngle(weapon->angle) + 90);
+
+                painter.drawPolygon(triangle);
+                painter.restore();
+
+                if (mech == focusedMech)
+                {
+                    painter.save();
+                    painter.translate(point);
+                    painter.rotate(convAngle(
+                        normalizeAngle(mech->angle + weapon->relAngle)));
+
+                    double range = weapon->getRange() * getScale();
+
+                    QRectF rect(-range, -range, range * 2, range * 2);
+
+                    int angle = convAngle(weapon->getAngleSize());
+                    painter.drawArc(rect, -angle * 16, angle * 2 * 16);
+
+                    if (weapon->getAngleSize() < PI)
+                    {
+                        painter.drawLine(
+                            QPointF(0, 0),
+                            QPointF(range * cos(qDegreesToRadians(-angle)),
+                                    range * sin(qDegreesToRadians(-angle))));
+                        painter.drawLine(
+                            QPointF(0, 0),
+                            QPointF(range * cos(qDegreesToRadians(angle)),
+                                    range * sin(qDegreesToRadians(angle))));
+                    }
+
+                    painter.restore();
+                }
+            }
+        }
+    }
 }

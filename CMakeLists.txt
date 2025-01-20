@@ -32,7 +32,7 @@ target_compile_features(ebm_lib PUBLIC cxx_std_11)
 
 # ---- Declare executable ----
 
-add_executable(ebm_exe src/main.cpp src/gui.cpp src/mechs.cpp src/board.cpp src/item.cpp)
+add_executable(ebm_exe src/main.cpp src/common.cpp src/gui.cpp src/mech.cpp src/board.cpp src/item.cpp src/unit.cpp src/weapon.cpp src/mechs/crawler.cpp src/mechs/meltingpoint.cpp src/mechs/arclight.cpp)
 add_executable(ebm::exe ALIAS ebm_exe)
 
 set_property(TARGET ebm_exe PROPERTY OUTPUT_NAME ebm)

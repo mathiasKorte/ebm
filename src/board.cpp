@@ -1,53 +1,60 @@
-#include <iostream>
-
 #include "board.h"
 
-#include "item.h"
-#include "mechs.h"
+#include "mechs/arclight.h"
+#include "mechs/crawler.h"
+#include "mechs/meltingpoint.h"
 
 Board::Board(bool check)
 {
     if (check)
         std::cout << "Board initialized \n";
 
-    Item* item = new Item();
+    units.push_back(new CrawlerUnit(
+        Eigen::Vector2i(72 / 2 - 3, 0), TEAM_RED, 1, &t, &mechs));
+    units.push_back(new CrawlerUnit(
+        Eigen::Vector2i(72 / 2 - 3, 11), TEAM_RED, 1, &t, &mechs));
+    units.push_back(
+        new CrawlerUnit(Eigen::Vector2i(21 + 2, 11), TEAM_RED, 1, &t, &mechs));
+    units.push_back(new CrawlerUnit(
+        Eigen::Vector2i(72 - 21 - 2 - 5, 11), TEAM_RED, 1, &t, &mechs));
 
-    Crawler* c1 = new Crawler(900, 200, TEAM_RED, 1, 1, item);
-    Crawler* c2 = new Crawler(900, 600, TEAM_RED, 2, 1, item);
-    Crawler* c3 = new Crawler(901, 601, TEAM_RED, 3, 2, item);
-    Crawler* c4 = new Crawler(100, 500, TEAM_BLUE, 4, 1, item);
-    Crawler* c5 = new Crawler(101, 500, TEAM_BLUE, 5, 1, item);
-    Crawler* c6 = new Crawler(100, 501, TEAM_BLUE, 6, 2, item);
-    Crawler* c7 = new Crawler(101, 501, TEAM_BLUE, 7, 3, item);
+    units.push_back(
+        new ArclightUnit(Eigen::Vector2i(21, 15), TEAM_RED, 2, &t, &mechs));
+    units.push_back(new ArclightUnit(
+        Eigen::Vector2i(72 - 21 - 2, 15), TEAM_RED, 2, &t, &mechs));
 
-    mechs.push_back(c1);
-    mechs.push_back(c2);
-    mechs.push_back(c3);
-    mechs.push_back(c4);
-    mechs.push_back(c5);
-    mechs.push_back(c6);
-    mechs.push_back(c7);
+    units.push_back(new MeltingPointUnit(
+        Eigen::Vector2i(34 - 7 + 3, 30 + 1), TEAM_GREEN, 1, &t, &mechs));
+    units.push_back(new ArclightUnit(
+        Eigen::Vector2i(32 - 7 + 3, 32 + 1), TEAM_GREEN, 1, &t, &mechs));
 
-    for (Mech* mech : mechs)
-        mech->findTarget(*this);
+    for (Unit* unit : units)
+        mechsDead.splice(mechsDead.end(), unit->spawn());
+
+    for (Unit* unit : units)
+        mechs.splice(mechs.end(), unit->spawn());
 }
 
 bool deathCheck(Mech* mech)
 {
-    return mech->hp <= 0;
+    return !mech->alive;
+}
+
+bool checkDeath(Mech* mech)
+{
+    return !mech->alive;
 }
 
 void Board::step()
 {
-    if (t % 1000 == 0)
-        for (Mech* mech : mechs)
-            if (!mech->inRange)
-                mech->findTarget(*this);
+    for (Mech* mech : mechs)
+        mech->act();
 
     for (Mech* mech : mechs)
-        mech->act(*this);
+        if (checkDeath(mech))
+            mechsDead.push_back(mech);
 
-    mechs.remove_if(deathCheck);
+    mechs.remove_if(checkDeath);
 
     t++;
 }

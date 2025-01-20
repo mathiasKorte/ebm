@@ -1,21 +1,17 @@
 #pragma once
-#include <list>
-
-class Mech;
-
-enum Team
-{
-    TEAM_RED,
-    TEAM_BLUE,
-};
-
-
+#include "common.h"
+#include "mech.h"
+#include "unit.h"
+#include "weapon.h"
 
 class Board
 {
   public:
+    std::list<Unit*> units;
     std::list<Mech*> mechs;
-    Board(bool check);
+    std::list<Mech*> mechsDead;
+
+    explicit Board(bool check);
     void step();
-    u_int64_t t = 0;
+    int t = 0;
 };

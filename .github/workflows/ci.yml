@@ -13,21 +13,55 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
 
-    steps:
-    - uses: actions/checkout@v4
+    permissions:
+      contents: write
 
-    - uses: actions/setup-python@v5
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Checkout repository2
+      uses: actions/setup-python@v5
       with: { python-version: "3.12" }
 
     - name: Install codespell
       run: pip3 install codespell
 
     - name: Lint
-      run: cmake -D FORMAT_COMMAND=clang-format-14 -P cmake/lint.cmake
+      run: |
+        cmake -D FORMAT_COMMAND=clang-format-14 -D FIX=YES -P cmake/lint.cmake
 
     - name: Spell check
-      if: always()
-      run: cmake -P cmake/spell.cmake
+      run: | 
+        cmake -D FIX=YES -P cmake/spell.cmake
+
+    - name: Debug GitHub context
+      run: |
+        echo "Repository: ${{ github.repository }}"
+        echo "Ref: ${{ github.ref }}"
+        echo "Actor: ${{ github.actor }}"
+
+    - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git add .
+        if git diff-index --quiet HEAD; then
+          echo "No changes to commit"
+        else
+          git commit -m "Automated code formatting and spelling fixes"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+        fi
+
+    
+
 
   coverage:
     needs: [lint]
@@ -38,11 +72,13 @@ jobs:
     # edit the "<name>" placeholder to your GitHub name.
     # If you do not wish to use codecov, then simply delete this job from the
     # workflow.
-    if: github.repository_owner == '<name>'
-      && false
+    if: github.repository_owner == 'mathiasKorte'
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y libopengl-dev qt6-base-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev libeigen3-dev
 
     - name: Install LCov
       run: sudo apt-get update -q
@@ -77,6 +113,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y libopengl-dev qt6-base-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev libeigen3-dev
+
     - name: Configure
       run: cmake --preset=ci-sanitize
 
@@ -101,7 +140,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-14, ubuntu-22.04, windows-2022]
+        os: [ubuntu-22.04] #[macos-14, ubuntu-22.04, windows-2022]
 
     runs-on: ${{ matrix.os }}
 
@@ -110,18 +149,27 @@ jobs:
 
     - name: Install static analyzers
       if: matrix.os == 'ubuntu-22.04'
-      run: >-
-        sudo apt-get install clang-tidy-14 cppcheck -y -q
-
-        sudo update-alternatives --install
-        /usr/bin/clang-tidy clang-tidy
-        /usr/bin/clang-tidy-14 140
+      run: |
+        sudo apt-get update 
+        sudo apt-get install -y clang-tidy-14 cppcheck libopengl-dev qt6-base-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev libeigen3-dev
+        sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 140
 
     - name: Setup MultiToolTask
       if: matrix.os == 'windows-2022'
       run: |
+        choco install qt
+        $qtPath = (Get-ChildItem -Directory "C:\Qt\" | Sort-Object Name -Descending | Select-Object -First 1).FullName
+        echo "$qtPath\msvc2019_64\bin" >> $env:GITHUB_PATH
         Add-Content "$env:GITHUB_ENV" 'UseMultiToolTask=true'
         Add-Content "$env:GITHUB_ENV" 'EnforceProcessCountAcrossBuilds=true'
+
+    - name: Install Qt6
+      if: matrix.os == 'macos-14'
+      run: |
+        brew update
+        brew install qt@6 eigen
+        echo 'export PATH="/usr/local/opt/qt@6/bin:$PATH"' >> ~/.zshrc
+        source ~/.zshrc
 
     - name: Configure
       shell: pwsh
@@ -156,8 +204,7 @@ jobs:
     # simply delete this job similarly to the coverage one.
     if: github.ref == 'refs/heads/master'
       && github.event_name == 'push'
-      && github.repository_owner == '<name>'
-      && false
+      && github.repository_owner == 'mathiasKorte'
 
     permissions:
       contents: write

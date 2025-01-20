@@ -10,6 +10,7 @@ default(FORMAT_COMMAND clang-format)
 default(
     PATTERNS
     src/*.cpp src/*.h
+    src/mechs/*.cpp src/mechs/*.h
     include/*.h
     test/*.cpp test/*.h
 )
