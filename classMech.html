@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mech class | ebm</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">ebm</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li>
+              <a href="pages.html">Pages</a>
+              <ol>
+                <li><a href="about.html">About</a></li>
+              </ol>
+            </li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          Mech <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="mech_8h.html">&lt;mech.h&gt;</a></div>
+        </h1>
+        <p><span></span></p>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#derived-classes">Derived classes</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+                <li><a href="#pub-attribs">Public variables</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <section id="derived-classes">
+          <h2><a href="#derived-classes">Derived classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              class <a href="classArclight.html" class="m-doc">Arclight</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              class <a href="classArclightShot.html" class="m-doc">ArclightShot</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              class <a href="classCrawler.html" class="m-doc">Crawler</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              class <a href="classMeltingPoint.html" class="m-doc">MeltingPoint</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a8674ea3587d1339ddef24b7abd874c15">
+              <span class="m-doc-wrap-bumper"><a href="#a8674ea3587d1339ddef24b7abd874c15" class="m-doc-self">Mech</a>(</span><span class="m-doc-wrap">Eigen::Vector2d _position,
+              <a href="common_8h.html#a9c13bb5b1d69698f9b47900990eaa598" class="m-doc">Team</a> _team,
+              int _lvl,
+              <a href="classItem.html" class="m-doc">Item</a>* _item,
+              int* _t,
+              std::list&lt;<a href="classMech.html" class="m-doc">Mech</a>*&gt;* _mechs)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8214b4f377b97b64c8d93a248bc21460">
+              <span class="m-doc-wrap-bumper"><a href="#a8214b4f377b97b64c8d93a248bc21460" class="m-doc-self">~Mech</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="afb33d5bf0f8bdc6f6774d9eb14a3d5e7">
+              <span class="m-doc-wrap-bumper">void <a href="#afb33d5bf0f8bdc6f6774d9eb14a3d5e7" class="m-doc-self">act</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ad6f8f9637346dc08b596a09fb2447d33">
+              <span class="m-doc-wrap-bumper">void <a href="#ad6f8f9637346dc08b596a09fb2447d33" class="m-doc-self">findObstacle</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a70c3597e3f7c3ff5997123dc16bba449">
+              <span class="m-doc-wrap-bumper">void <a href="#a70c3597e3f7c3ff5997123dc16bba449" class="m-doc-self">initValues</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a9153f859a520ad2ed461fb67a47b1f6b">
+              <span class="m-doc-wrap-bumper">auto <a href="#a9153f859a520ad2ed461fb67a47b1f6b" class="m-doc-self">gapToMech</a>(</span><span class="m-doc-wrap"><a href="classMech.html" class="m-doc">Mech</a>* mech) -&gt; double</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0a1b98748d22f0b9c60da157bcdd4a26">
+              <span class="m-doc-wrap-bumper">auto <a href="#a0a1b98748d22f0b9c60da157bcdd4a26" class="m-doc-self">gapToPos</a>(</span><span class="m-doc-wrap">Eigen::Vector2d mapPos) -&gt; double</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae0e54d6118844bdb04b84522cfeb96f7">
+              <span class="m-doc-wrap-bumper">void <a href="#ae0e54d6118844bdb04b84522cfeb96f7" class="m-doc-self">getAttacked</a>(</span><span class="m-doc-wrap">double damage,
+              bool hacking)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a21ae8bdf58f95e288512f7a74e4a559d">
+              <span class="m-doc-wrap-bumper">void <a href="#a21ae8bdf58f95e288512f7a74e4a559d" class="m-doc-self">avoidObstacles</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1d2290d5bfbaa94a42d7a0961c96c557">
+              <span class="m-doc-wrap-bumper">void <a href="#a1d2290d5bfbaa94a42d7a0961c96c557" class="m-doc-self">move</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5ea699a3f7f4098781abb6779a2c4725">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5ea699a3f7f4098781abb6779a2c4725" class="m-doc-self">getAttackable</a>(</span><span class="m-doc-wrap">) -&gt; bool <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a4931a526412287b06704fe70e9fe1cf5">
+              <span class="m-doc-wrap-bumper">auto <a href="#a4931a526412287b06704fe70e9fe1cf5" class="m-doc-self">getHpBase</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac0b5505cd5c2ac30d03d7f56428f8b29">
+              <span class="m-doc-wrap-bumper">auto <a href="#ac0b5505cd5c2ac30d03d7f56428f8b29" class="m-doc-self">getSpeed</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0ed2c5d5ed9483b63b64cc9251f23d5f">
+              <span class="m-doc-wrap-bumper">auto <a href="#a0ed2c5d5ed9483b63b64cc9251f23d5f" class="m-doc-self">getRadius</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0cdd1367ac69567726fbf06def0be1de">
+              <span class="m-doc-wrap-bumper">auto <a href="#a0cdd1367ac69567726fbf06def0be1de" class="m-doc-self">getWeight</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a76554f0ef77be793005098a9112984e9">
+              <span class="m-doc-wrap-bumper">auto <a href="#a76554f0ef77be793005098a9112984e9" class="m-doc-self">getTurnSpeed</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac46a5979efa71d71799a0af142430ded">
+              <span class="m-doc-wrap-bumper">auto <a href="#ac46a5979efa71d71799a0af142430ded" class="m-doc-self">getHasShield</a>(</span><span class="m-doc-wrap">) -&gt; bool <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2815e0baf0e177ee2d52e27dc19dce0e">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2815e0baf0e177ee2d52e27dc19dce0e" class="m-doc-self">getString</a>(</span><span class="m-doc-wrap">) -&gt; std::string <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1693a06afd55104da81c91c5ba3e8821">
+              <span class="m-doc-wrap-bumper">auto <a href="#a1693a06afd55104da81c91c5ba3e8821" class="m-doc-self">getWeaponFactory</a>(</span><span class="m-doc-wrap">) -&gt; std::list&lt;std::function&lt;<a href="classWeapon.html" class="m-doc">Weapon</a>*(<a href="classMech.html" class="m-doc">Mech</a>*)&gt;&gt; <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-attribs">
+          <h2><a href="#pub-attribs">Public variables</a></h2>
+          <dl class="m-doc">
+            <dt id="a4e447c27861016cb9794a49719a0864c">
+              Eigen::Vector2d <a href="#a4e447c27861016cb9794a49719a0864c" class="m-doc-self">position</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1dca4ab4a6dffbf28ed7fd8a453d9b39">
+              <a href="common_8h.html#a9c13bb5b1d69698f9b47900990eaa598" class="m-doc">Team</a> <a href="#a1dca4ab4a6dffbf28ed7fd8a453d9b39" class="m-doc-self">team</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2eaef0792d56fbd5f117746704cf48fc">
+              int <a href="#a2eaef0792d56fbd5f117746704cf48fc" class="m-doc-self">lvl</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5374ab1b807612e9fbbe9235d2f56e55">
+              <a href="classItem.html" class="m-doc">Item</a>* <a href="#a5374ab1b807612e9fbbe9235d2f56e55" class="m-doc-self">item</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1a5178342a7b961f2b58760861cd33f1">
+              int* <a href="#a1a5178342a7b961f2b58760861cd33f1" class="m-doc-self">t</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8e98f94630fa6524a4e6fef3768e9288">
+              std::list&lt;<a href="classMech.html" class="m-doc">Mech</a>*&gt;* <a href="#a8e98f94630fa6524a4e6fef3768e9288" class="m-doc-self">mechs</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae59e989528ab2b57a1762c1e3b90b4d1">
+              double <a href="#ae59e989528ab2b57a1762c1e3b90b4d1" class="m-doc-self">hp</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a89f575a363b03fd75110995487c942ee">
+              double <a href="#a89f575a363b03fd75110995487c942ee" class="m-doc-self">hpShield</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a6d4cfaa82a6a9b0dd19c7709a1334fb7">
+              double <a href="#a6d4cfaa82a6a9b0dd19c7709a1334fb7" class="m-doc-self">hpMax</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a450e672ef10f69f482c7f1faf05b1f62">
+              <a href="classMech.html" class="m-doc">Mech</a>* <a href="#a450e672ef10f69f482c7f1faf05b1f62" class="m-doc-self">obstacle</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ab7188c57d4575c2cf79347c5cf64c8aa">
+              std::list&lt;<a href="classWeapon.html" class="m-doc">Weapon</a>*&gt; <a href="#ab7188c57d4575c2cf79347c5cf64c8aa" class="m-doc-self">weapons</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aa25407362e9653c3fff7ea7f64e99d6c">
+              bool <a href="#aa25407362e9653c3fff7ea7f64e99d6c" class="m-doc-self">alive</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a61bc492469b2ecfaa15c52251e8cc284">
+              double <a href="#a61bc492469b2ecfaa15c52251e8cc284" class="m-doc-self">hackingDamage</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="adcedfde8caed2825d6ddd292f116d25b">
+              bool <a href="#adcedfde8caed2825d6ddd292f116d25b" class="m-doc-self">getsHacked</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ab274e6859b97be8a981bd22cb919d2c9">
+              double <a href="#ab274e6859b97be8a981bd22cb919d2c9" class="m-doc-self">angle</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac57f5b08ae2e424e9dfd5bba6c67c357">
+              double <a href="#ac57f5b08ae2e424e9dfd5bba6c67c357" class="m-doc-self">blocking</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v1.js"></script>
+<script src="searchdata-v1.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>ebm. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>
