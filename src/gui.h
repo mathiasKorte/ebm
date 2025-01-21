@@ -14,34 +14,35 @@ class Gui : public QWidget
 {
   public:
     Board* board;
-    QTimer* timer;
-
+    QTimer* timer=nullptr;
     Mech* focusedMech = nullptr;
-    double zoomScale;
+    double zoomScale=1;
     Eigen::Vector2d zoomShift;
-    double windowScale;
+    double windowScale=1;
     Eigen::Vector2d windowShift;
-    Eigen::Vector2d windowSize;
+    Eigen::Vector2i windowSize;
 
-    Gui(Board* _board);
-    void paintEvent(QPaintEvent*) override;
+    explicit Gui(Board* boardArg);
+    ~Gui() override;
+    void paintEvent(QPaintEvent* event) override;
     void onUpdate();
-    void resizeEvent(QResizeEvent* event);
-    void mousePressEvent(QMouseEvent* event);
+    void resizeEvent(QResizeEvent* event)override;
+    void mousePressEvent(QMouseEvent* event) override;
 
     void calcZoom(bool zoom);
-    double convAngle(double angle);
-    QPoint convPoint(Eigen::Vector2d vec);
-    double getScale();
-    Eigen::Vector2d getShift();
-    double distQtMech(QPoint qt, Mech* mech);
+    static double convertAngle(double angle);
+    QPoint convertPoint(Eigen::Vector2d vec) const;
+    static int int1(double value);
+    double getScale() const;
+    Eigen::Vector2d getShift() const;
+    double distQtMech(QPoint qtPoint, Mech* mech) const;
 
     void drawLineFromVectors(QPainter& painter,
-                             Eigen::Vector2d p1,
-                             Eigen::Vector2d p2);
+                             Eigen::Vector2d point1,
+                             Eigen::Vector2d point2)const;
     void drawRectFromVectors(QPainter& painter,
-                             Eigen::Vector2d p1,
-                             Eigen::Vector2d p2);
+                             Eigen::Vector2d point1,
+                             Eigen::Vector2d point2)const;
 
     void drawBoard();
     void drawUnits();

@@ -3,18 +3,20 @@
 #include "item.h"
 #include "mech.h"
 
-Unit::Unit(Eigen::Vector2i _position,
-           Team _team,
-           int _lvl,
-           int* _t,
-           std::list<Mech*>* _mechs)
-    : position(_position)
-    , team(_team)
-    , lvl(_lvl)
-    , t(_t)
-    , mechs(_mechs)
+Unit::Unit(
+    Eigen::Vector2i positionArg, Team teamArg, int lvlArg, int* tArg, std::list<Mech*>* mechsArg)
+    : position(std::move(positionArg))
+    , team(teamArg)
+    , lvl(lvlArg)
+    , t(tArg)
+    , mechs(mechsArg)
+    , item(new Item())
 {
-    item = new Item();
+}
+
+Unit::~Unit()
+{
+    delete item;
 }
 
 std::list<Mech*> Unit::spawn()
@@ -23,21 +25,19 @@ std::list<Mech*> Unit::spawn()
     while (count.x() > 10)
         count += Eigen::Vector2i(-10, 1);
     if (count.x() * count.y() != getCount())
-        throw std::runtime_error(
-            "Unit count can't be divided into rows and columns");
+        throw std::runtime_error("Unit count can't be divided into rows and columns");
 
     if (transposed)
         std::swap(count.x(), count.y());
 
-    Eigen::Vector2d scale =
-        getSize().cast<double>().array() / count.cast<double>().array();
+    Eigen::Vector2d scale = getSize().cast<double>().array() / count.cast<double>().array();
 
     std::list<Mech*> mechsNew;
-    for (int x = 0; x < count.x(); x++)
-        for (int y = 0; y < count.y(); y++)
+    for (int xPos = 0; xPos < count.x(); xPos++)
+        for (int yPos = 0; yPos < count.y(); yPos++)
         {
-            Eigen::Vector2d mechPosition = position.cast<double>().array()
-                + (Eigen::Vector2d(x, y).array() + 0.5) * scale.array();
+            const Eigen::Vector2d mechPosition = position.cast<double>().array()
+                + (Eigen::Vector2d(xPos, yPos).array() + 0.5) * scale.array();
             mechsNew.push_back(makeMech(mechPosition));
         }
 
@@ -52,7 +52,6 @@ void Unit::lvlUp()
 Eigen::Vector2i Unit::getSize()
 {
     if (transposed)
-        return Eigen::Vector2i(getBaseSize().y(), getBaseSize().x());
-    else
-        return getBaseSize();
+        return {getBaseSize().y(), getBaseSize().x()};
+    return getBaseSize();
 }

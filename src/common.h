@@ -11,7 +11,7 @@
 #define PI M_PI
 
 constexpr double SMALL = 0.001;
-constexpr double SMALL_ANGLE = (PI / 10.0);
+constexpr double SMALL_ANGLE = PI / 10.0;
 constexpr int GIVE_UP_OBSTACLES = 10;
 constexpr double MAX_RANGE = std::numeric_limits<double>::max() / 10.0;
 
@@ -33,18 +33,18 @@ Eigen::Vector2d clampVector(Eigen::Vector2d vec,
 class MyTimer
 {
   public:
-    MyTimer(int _timeMax);
+    explicit MyTimer(int timeMaxArg);
     void step();
     void reset();
-    bool done;
     int timeMax;
-    int time;
+    bool done=false;
+    int time=0;
 };
 
-enum Team
+enum class Team : std::uint8_t
 {
-    TEAM_RED,
-    TEAM_GREEN
+    red,
+    green
 };
 
 void mechsCheck(std::list<Mech*>* mechs);

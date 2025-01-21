@@ -11,19 +11,16 @@ auto normalizeAngle(double rad) -> double
     return rad;
 }
 
-Eigen::Vector2d clampVector(Eigen::Vector2d vec,
-                            Eigen::Vector2d min,
-                            Eigen::Vector2d max)
+Eigen::Vector2d clampVector(Eigen::Vector2d vec, Eigen::Vector2d min, Eigen::Vector2d max)
 {
-    double clampedX = std::clamp(vec.x(), min.x(), max.x());
-    double clampedY = std::clamp(vec.y(), min.y(), max.y());
-    return Eigen::Vector2d(clampedX, clampedY);
+    const double clampedX = std::clamp(vec.x(), min.x(), max.x());
+    const double clampedY = std::clamp(vec.y(), min.y(), max.y());
+    return {clampedX, clampedY};
 }
 
-MyTimer::MyTimer(int _timeMax)
-    : timeMax(_timeMax)
+MyTimer::MyTimer(int timeMaxArg)
+    : timeMax(timeMaxArg)
 {
-    reset();
 }
 
 void MyTimer::step()
@@ -42,14 +39,13 @@ void mechCheck(Mech* mech)
 {
     std::cout << "getRadius(): " << (mech->getRadius()) << "\n";
 }
+
 void mechsCheck(std::list<Mech*>* mechs)
 {
     std::cout << "-------------------"
               << "\n";
     for (Mech* mech : *mechs)
-    {
         mechCheck(mech);
-    }
     std::cout << "-------------------"
               << "\n";
 }

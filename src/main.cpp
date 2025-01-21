@@ -3,11 +3,11 @@
 
 int main(int argc, char* argv[])
 {
-    Board board(true);
+    Board board;
 
-    QApplication app(argc, argv);
+    const QApplication app(argc, argv);
     Gui gui(&board);
     gui.show();
 
-    return app.exec();
+    return QApplication::exec();
 }

@@ -7,13 +7,13 @@
 class Arclight : public Mech
 {
   public:
-    Arclight(Eigen::Vector2d _position,
-             Team _team,
-             int _lvl,
-             Item* _item,
-             int* _t,
-             std::list<Mech*>* _mechs);
-
+    Arclight(Eigen::Vector2d positionArg,
+             Team teamArg,
+             int lvlArg,
+             Item* itemArg,
+             int* tArg,
+             std::list<Mech*>* mechsArg);
+    ~Arclight() override = default;
     double getHpBase() override;
     double getSpeed() override;
     double getRadius() override;
@@ -28,22 +28,22 @@ class Arclight : public Mech
 class ArclightUnit : public Unit
 {
   public:
-    ArclightUnit(Eigen::Vector2i _position,
-                 Team _team,
-                 int _lvl,
-                 int* _t,
-                 std::list<Mech*>* _mechs);
-
+    ArclightUnit(Eigen::Vector2i positionArg,
+                 Team teamArg,
+                 int lvlArg,
+                 int* tArg,
+                 std::list<Mech*>* mechsArg);
+    ~ArclightUnit() override = default;
     int getCount() override;
-    Mech* makeMech(Eigen::Vector2d _position) override;
+    Mech* makeMech(Eigen::Vector2d positionArg) override;
     Eigen::Vector2i getBaseSize() override;
 };
 
 class ArclightWeapon : public SpawnerWeapon
 {
   public:
-    ArclightWeapon(Mech* _mech, double _relAngle);
-
+    ArclightWeapon(Mech* mechArg, double relAngleArg);
+    ~ArclightWeapon() override = default;
     double getRadius() override;
     double getRange() override;
     double getTurnSpeed() override;
@@ -57,13 +57,13 @@ class ArclightWeapon : public SpawnerWeapon
 class ArclightShot : public Mech
 {
   public:
-    ArclightShot(Eigen::Vector2d _position,
-                 Team _team,
-                 int _lvl,
-                 Item* _item,
-                 int* _t,
-                 std::list<Mech*>* _mechs);
-
+    ArclightShot(Eigen::Vector2d positionArg,
+                 Team teamArg,
+                 int lvlArg,
+                 Item* itemArg,
+                 int* tArg,
+                 std::list<Mech*>* mechsArg);
+    ~ArclightShot() override = default;
     double getHpBase() override;
     double getSpeed() override;
     double getRadius() override;
@@ -78,8 +78,8 @@ class ArclightShot : public Mech
 class ArclightShotExplosion : public ExplosionWeapon
 {
   public:
-    ArclightShotExplosion(Mech* _mech, double _relAngle);
-
+    ArclightShotExplosion(Mech* mechArg, double relAngleArg);
+    ~ArclightShotExplosion() override = default;
     double getSplash() override;
     double getAttack() override;
     bool getSuicide() override;

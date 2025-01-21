@@ -2,10 +2,10 @@
 
 #include "mech.h"
 
-Weapon::Weapon(Mech* _mech, double _relAngle)
-    : mechOwn(_mech)
-    , relAngle(_relAngle)
-    , angle(_relAngle)
+Weapon::Weapon(Mech* mechArg, double relAngleArg)
+    : mechOwn(mechArg)
+    , relAngle(relAngleArg)
+    , angle(relAngleArg)
 {
 }
 
@@ -16,8 +16,7 @@ bool Weapon::inTargetRange()
 
 bool Weapon::inMechAngle(Mech* mech)
 {
-    double angleDiff =
-        normalizeAngle(relAngle + mechOwn->angle - getMechAngle(mech));
+    const double angleDiff = normalizeAngle(relAngle + mechOwn->angle - getMechAngle(mech));
     return std::abs(angleDiff) < getAngleSize();
 }
 
@@ -27,12 +26,12 @@ void Weapon::findTarget()
 
     for (Mech* mech : *(mechOwn->mechs))
         if ((mech->team != mechOwn->team) && mech->getAttackable()
-            && (gapToMech(mech) + getRange() * !inMechAngle(mech)
-                < gapToMech(target) + getRange() * !inMechAngle(target)))
+            && (gapToMech(mech) + getRange() * static_cast<double>(!inMechAngle(mech))
+                < gapToMech(target) + getRange() * static_cast<double>(!inMechAngle(target))))
             target = mech;
 }
 
-bool Weapon::targetExists()
+bool Weapon::targetExists() const
 {
     if (target == nullptr)
         return false;
@@ -60,19 +59,19 @@ double Weapon::getMechAngle(Mech* mech)
     if (mech == nullptr)
         return normalizeAngle(relAngle + mechOwn->angle);
 
-    Eigen::Vector2d delta_position = mech->position - getPosition();
-    return std::atan2(delta_position.y(), delta_position.x());
+    Eigen::Vector2d deltaPosition = mech->position - getPosition();
+    return std::atan2(deltaPosition.y(), deltaPosition.x());
 }
 
 void Weapon::turn()
 {
-    double targetAngle;
+    double targetAngle = 0;
     if (inTargetRange())
         targetAngle = getMechAngle(target);
     else
         targetAngle = normalizeAngle(relAngle + mechOwn->angle);
 
-    double angleDiff = normalizeAngle(targetAngle - angle);
+    const double angleDiff = normalizeAngle(targetAngle - angle);
 
     if (std::abs(angleDiff) <= getTurnSpeed())
         angle = targetAngle;
@@ -86,8 +85,7 @@ void Weapon::turn()
 Eigen::Vector2d Weapon::getPosition()
 {
     return mechOwn->position
-        + Eigen::Vector2d(std::cos(relAngle + mechOwn->angle),
-                          std::sin(relAngle + mechOwn->angle))
+        + Eigen::Vector2d(std::cos(relAngle + mechOwn->angle), std::sin(relAngle + mechOwn->angle))
         * getRadius();
 }
 
@@ -109,7 +107,7 @@ void LaserWeapon::shoot()
     }
     oldTarget = target;
 
-    splashAttack(target->position, getAttack() * charge);
+    splashAttack(target->position, getAttack() * charge * mechOwn->lvl);
 }
 void MeleeWeapon::shoot()
 {
@@ -117,7 +115,7 @@ void MeleeWeapon::shoot()
 
     if (aimingTimer->done)
     {
-        splashAttack(target->position, getAttack());
+        splashAttack(target->position, getAttack() * mechOwn->lvl);
         aimingTimer->reset();
     }
 }
@@ -154,21 +152,33 @@ void ExplosionWeapon::shoot()
         mechOwn->alive = false;
 }
 
-LaserWeapon::LaserWeapon(Mech* _mech, double _relAngle)
-    : Weapon(_mech, _relAngle)
+LaserWeapon::LaserWeapon(Mech* mechArg, double relAngleArg)
+    : Weapon(mechArg, relAngleArg)
 {
 }
-MeleeWeapon::MeleeWeapon(Mech* _mech, double _relAngle)
-    : Weapon(_mech, _relAngle)
+MeleeWeapon::MeleeWeapon(Mech* mechArg, double relAngleArg)
+    : Weapon(mechArg, relAngleArg)
 {
 }
-SpawnerWeapon::SpawnerWeapon(Mech* _mech, double _relAngle)
-    : Weapon(_mech, _relAngle)
+SpawnerWeapon::SpawnerWeapon(Mech* mechArg, double relAngleArg)
+    : Weapon(mechArg, relAngleArg)
 {
 }
-ExplosionWeapon::ExplosionWeapon(Mech* _mech, double _relAngle)
-    : Weapon(_mech, _relAngle)
+ExplosionWeapon::ExplosionWeapon(Mech* mechArg, double relAngleArg)
+    : Weapon(mechArg, relAngleArg)
 {
+}
+
+MeleeWeapon::~MeleeWeapon()
+{
+    delete aimingTimer;
+}
+
+SpawnerWeapon::~SpawnerWeapon()
+{
+    delete aimingTimer;
+    delete loadingTimer;
+    delete salvoTimer;
 }
 
 void MeleeWeapon::initTimer()

@@ -7,13 +7,13 @@
 class MeltingPoint : public Mech
 {
   public:
-    MeltingPoint(Eigen::Vector2d _position,
-                 Team _team,
-                 int _lvl,
-                 Item* _item,
-                 int* _t,
-                 std::list<Mech*>* _mechs);
-
+    MeltingPoint(Eigen::Vector2d positionArg,
+                 Team teamArg,
+                 int lvlArg,
+                 Item* itemArg,
+                 int* tArg,
+                 std::list<Mech*>* mechsArg);
+    ~MeltingPoint() override = default;
     double getHpBase() override;
     double getSpeed() override;
     double getRadius() override;
@@ -28,22 +28,22 @@ class MeltingPoint : public Mech
 class MeltingPointUnit : public Unit
 {
   public:
-    MeltingPointUnit(Eigen::Vector2i _position,
-                     Team _team,
-                     int _lvl,
-                     int* _t,
-                     std::list<Mech*>* _mechs);
-
+    MeltingPointUnit(Eigen::Vector2i positionArg,
+                     Team teamArg,
+                     int lvlArg,
+                     int* tArg,
+                     std::list<Mech*>* mechsArg);
+~MeltingPointUnit() override= default;
     int getCount() override;
-    Mech* makeMech(Eigen::Vector2d _position) override;
+    Mech* makeMech(Eigen::Vector2d positionArg) override;
     Eigen::Vector2i getBaseSize() override;
 };
 
-class MeltingPointMultiWeapon : public LaserWeapon
+class MeltingPointLaser : public LaserWeapon
 {
   public:
-    MeltingPointMultiWeapon(Mech* _mech, double _relAngle);
-
+    MeltingPointLaser(Mech* mechArg, double relAngleArg);
+    ~MeltingPointLaser() override = default;
     double getRange() override;
     double getSplash() override;
     double getAttack() override;
@@ -55,8 +55,8 @@ class MeltingPointMultiWeapon : public LaserWeapon
 class MeltingPointSpawnerWeapon : public SpawnerWeapon
 {
   public:
-    MeltingPointSpawnerWeapon(Mech* _mech, double _relAngle);
-
+    MeltingPointSpawnerWeapon(Mech* mechArg, double relAngleArg);
+    ~MeltingPointSpawnerWeapon() override = default;
     double getRadius() override;
     double getRange() override;
     double getTurnSpeed() override;

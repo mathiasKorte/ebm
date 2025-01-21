@@ -11,9 +11,26 @@ Checks: "*,\
   -llvm-include-order,\
   -llvmlibc-*,\
   -modernize-use-nodiscard,\
-  -misc-non-private-member-variables-in-classes"
+  -misc-non-private-member-variables-in-classes,\ 
+  -modernize-use-trailing-return-type,\ 
+  -cppcoreguidelines-avoid-magic-numbers,\
+  -readability-magic-numbers,\
+  -google-readability-braces-around-statements,\
+  -hicpp-braces-around-statements,\
+  -readability-braces-around-statements,\
+  -cppcoreguidelines-owning-memory,\
+  -misc-include-cleaner,\
+  -cppcoreguidelines-special-member-functions,\
+  -hicpp-use-auto,\
+  -modernize-use-auto,\
+  -performance-unnecessary-value-param,\
+  -hicpp-named-parameter,\
+  -readability-named-parameter,\
+  -hicpp-special-member-functions"
 WarningsAsErrors: ''
 CheckOptions:
+  - key: 'modernize-use-trailing-return-type'
+    value: 'false'
   - key: 'bugprone-argument-comment.StrictMode'
     value: 'true'
 # Prefer using enum classes with 2 values for parameters instead of bools
@@ -55,7 +72,7 @@ CheckOptions:
   - key: 'readability-identifier-naming.ClassMemberCase'
     value: 'CamelCase'
   - key: 'readability-identifier-naming.ClassMethodCase'
-    value: 'CamelCase'
+    value: 'camelBack'
   - key: 'readability-identifier-naming.ConstantCase'
     value: 'camelBack'
   - key: 'readability-identifier-naming.ConstantMemberCase'
@@ -69,11 +86,11 @@ CheckOptions:
   - key: 'readability-identifier-naming.ConstexprMethodCase'
     value: 'camelBack'
   - key: 'readability-identifier-naming.ConstexprVariableCase'
-    value: 'camelBack'
+    value: 'UPPER_CASE'
   - key: 'readability-identifier-naming.EnumCase'
-    value: 'camelBack'
+    value: 'CamelCase'
   - key: 'readability-identifier-naming.EnumConstantCase'
-    value: 'camelBack'
+    value: 'CamelCase'
   - key: 'readability-identifier-naming.FunctionCase'
     value: 'camelBack'
   - key: 'readability-identifier-naming.GlobalConstantCase'

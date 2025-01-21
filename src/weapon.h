@@ -4,13 +4,13 @@
 class Weapon
 {
   public:
-    Weapon(Mech* _mech, double _relAngle);
+    Weapon(Mech* mechArg, double relAngleArg);
     virtual ~Weapon() = default;
 
     Mech* mechOwn;
     double relAngle;
     Mech* target = nullptr;
-    double angle;
+    double angle = 0;
 
     bool inTargetRange();
     bool inMechAngle(Mech* mech);
@@ -21,7 +21,7 @@ class Weapon
     double gapToMech(Mech* mech);
     Eigen::Vector2d getPosition();
     double getMechAngle(Mech* mech);
-    bool targetExists();
+    bool targetExists() const;
 
     virtual void shoot() = 0;
     virtual double getRange() = 0;
@@ -36,8 +36,8 @@ class Weapon
 class LaserWeapon : public Weapon
 {
   public:
-    LaserWeapon(Mech* _mech, double _relAngle);
-    virtual ~LaserWeapon() = default;
+    LaserWeapon(Mech* mechArg, double relAngleArg);
+    ~LaserWeapon() override = default;
 
     double charge = 1;
     Mech* oldTarget = nullptr;
@@ -52,10 +52,10 @@ class LaserWeapon : public Weapon
 class MeleeWeapon : public Weapon
 {
   public:
-    MeleeWeapon(Mech* _mech, double _relAngle);
-    virtual ~MeleeWeapon() = default;
+    MeleeWeapon(Mech* mechArg, double relAngleArg);
+    ~MeleeWeapon() override;
 
-    MyTimer* aimingTimer;
+    MyTimer* aimingTimer = nullptr;
 
     void initTimer();
 
@@ -72,12 +72,12 @@ class MeleeWeapon : public Weapon
 class SpawnerWeapon : public Weapon
 {
   public:
-    SpawnerWeapon(Mech* _mech, double _relAngle);
-    virtual ~SpawnerWeapon() = default;
+    SpawnerWeapon(Mech* mechArg, double relAngleArg);
+    ~SpawnerWeapon() override;
 
-    MyTimer* aimingTimer;
-    MyTimer* loadingTimer;
-    MyTimer* salvoTimer;
+    MyTimer* aimingTimer = nullptr;
+    MyTimer* loadingTimer = nullptr;
+    MyTimer* salvoTimer = nullptr;
 
     void initTimer();
 
@@ -95,8 +95,8 @@ class SpawnerWeapon : public Weapon
 class ExplosionWeapon : public Weapon
 {
   public:
-    ExplosionWeapon(Mech* _mech, double _relAngle);
-    virtual ~ExplosionWeapon() = default;
+    ExplosionWeapon(Mech* mechArg, double relAngleArg);
+    ~ExplosionWeapon() override = default;
 
     void shoot() override;
     bool getHack() override;

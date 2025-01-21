@@ -1,27 +1,27 @@
 #include "crawler.h"
 
-Crawler::Crawler(Eigen::Vector2d _position,
-                 Team _team,
-                 int _lvl,
-                 Item* _item,
-                 int* _t,
-                 std::list<Mech*>* _mechs)
-    : Mech(_position, _team, _lvl, _item, _t, _mechs)
+Crawler::Crawler(Eigen::Vector2d positionArg,
+                 Team teamArg,
+                 int lvlArg,
+                 Item* itemArg,
+                 int* tArg,
+                 std::list<Mech*>* mechsArg)
+    : Mech(positionArg, teamArg, lvlArg, itemArg, tArg, mechsArg)
 {
     initValues();
 }
 
-CrawlerUnit::CrawlerUnit(Eigen::Vector2i _position,
-                         Team _team,
-                         int _lvl,
-                         int* _t,
-                         std::list<Mech*>* _mechs)
-    : Unit(_position, _team, _lvl, _t, _mechs)
+CrawlerUnit::CrawlerUnit(Eigen::Vector2i positionArg,
+                         Team teamArg,
+                         int lvlArg,
+                         int* tArg,
+                         std::list<Mech*>* mechsArg)
+    : Unit(positionArg, teamArg, lvlArg, tArg, mechsArg)
 {
 }
 
-CrawlerWeapon::CrawlerWeapon(Mech* _mech, double _relAngle)
-    : MeleeWeapon(_mech, _relAngle)
+CrawlerWeapon::CrawlerWeapon(Mech* mechArg, double relAngleArg)
+    : MeleeWeapon(mechArg, relAngleArg)
 {
     initTimer();
 }
@@ -70,12 +70,12 @@ double Crawler::getWeight()
 
 std::string Crawler::getString()
 {
-    return std::string("C");
+    return {"C"};
 }
 
-Mech* CrawlerUnit::makeMech(Eigen::Vector2d _position)
+Mech* CrawlerUnit::makeMech(Eigen::Vector2d positionArg)
 {
-    return new Crawler(_position, team, lvl, item, t, mechs);
+    return new Crawler(positionArg, team, lvl, item, t, mechs);
 }
 
 int CrawlerUnit::getCount()
@@ -85,7 +85,7 @@ int CrawlerUnit::getCount()
 
 Eigen::Vector2i CrawlerUnit::getBaseSize()
 {
-    return Eigen::Vector2i(5, 2);
+    return {5, 2};
 }
 
 double CrawlerWeapon::getSplash()

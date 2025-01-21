@@ -1,12 +1,12 @@
 #include "arclight.h"
 
-Arclight::Arclight(Eigen::Vector2d _position,
-                   Team _team,
-                   int _lvl,
-                   Item* _item,
-                   int* _t,
-                   std::list<Mech*>* _mechs)
-    : Mech(_position, _team, _lvl, _item, _t, _mechs)
+Arclight::Arclight(Eigen::Vector2d positionArg,
+                   Team teamArg,
+                   int lvlArg,
+                   Item* itemArg,
+                   int* tArg,
+                   std::list<Mech*>* mechsArg)
+    : Mech(positionArg, teamArg, lvlArg, itemArg, tArg, mechsArg)
 {
     initValues();
 }
@@ -41,7 +41,7 @@ bool Arclight::getAttackable()
 }
 std::string Arclight::getString()
 {
-    return std::string("A");
+    return {"A"};
 }
 std::list<std::function<Weapon*(Mech*)>> Arclight::getWeaponFactory()
 {
@@ -50,12 +50,12 @@ std::list<std::function<Weapon*(Mech*)>> Arclight::getWeaponFactory()
     };
 }
 
-ArclightUnit::ArclightUnit(Eigen::Vector2i _position,
-                           Team _team,
-                           int _lvl,
-                           int* _t,
-                           std::list<Mech*>* _mechs)
-    : Unit(_position, _team, _lvl, _t, _mechs)
+ArclightUnit::ArclightUnit(Eigen::Vector2i positionArg,
+                           Team teamArg,
+                           int lvlArg,
+                           int* tArg,
+                           std::list<Mech*>* mechsArg)
+    : Unit(positionArg, teamArg, lvlArg, tArg, mechsArg)
 {
 }
 
@@ -63,17 +63,17 @@ int ArclightUnit::getCount()
 {
     return 1;
 }
-Mech* ArclightUnit::makeMech(Eigen::Vector2d _position)
+Mech* ArclightUnit::makeMech(Eigen::Vector2d positionArg)
 {
-    return new Arclight(_position, team, lvl, item, t, mechs);
+    return new Arclight(positionArg, team, lvl, item, t, mechs);
 }
 Eigen::Vector2i ArclightUnit::getBaseSize()
 {
-    return Eigen::Vector2i(2, 2);
+    return {2, 2};
 }
 
-ArclightWeapon::ArclightWeapon(Mech* _mech, double _relAngle)
-    : SpawnerWeapon(_mech, _relAngle)
+ArclightWeapon::ArclightWeapon(Mech* mechArg, double relAngleArg)
+    : SpawnerWeapon(mechArg, relAngleArg)
 {
     initTimer();
 }
@@ -110,19 +110,19 @@ Mech* ArclightWeapon::makeMech()
 {
     return new ArclightShot(getPosition() * 1.0001,
                             mechOwn->team,
-                            1,
+                            mechOwn->lvl,
                             nullptr,
                             mechOwn->t,
                             mechOwn->mechs);
 }
 
-ArclightShot::ArclightShot(Eigen::Vector2d _position,
-                           Team _team,
-                           int _lvl,
-                           Item* _item,
-                           int* _t,
-                           std::list<Mech*>* _mechs)
-    : Mech(_position, _team, _lvl, _item, _t, _mechs)
+ArclightShot::ArclightShot(Eigen::Vector2d positionArg,
+                           Team teamArg,
+                           int lvlArg,
+                           Item* itemArg,
+                           int* tArg,
+                           std::list<Mech*>* mechsArg)
+    : Mech(positionArg, teamArg, lvlArg, itemArg, tArg, mechsArg)
 {
     initValues();
 }
@@ -157,7 +157,7 @@ bool ArclightShot::getAttackable()
 }
 std::string ArclightShot::getString()
 {
-    return std::string("S");
+    return {"S"};
 }
 std::list<std::function<Weapon*(Mech*)>> ArclightShot::getWeaponFactory()
 {
@@ -166,8 +166,8 @@ std::list<std::function<Weapon*(Mech*)>> ArclightShot::getWeaponFactory()
     };
 }
 
-ArclightShotExplosion::ArclightShotExplosion(Mech* _mech, double _relAngle)
-    : ExplosionWeapon(_mech, _relAngle)
+ArclightShotExplosion::ArclightShotExplosion(Mech* mechArg, double relAngleArg)
+    : ExplosionWeapon(mechArg, relAngleArg)
 {
 }
 

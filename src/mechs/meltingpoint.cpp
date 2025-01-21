@@ -2,34 +2,34 @@
 
 #include "crawler.h"
 
-MeltingPoint::MeltingPoint(Eigen::Vector2d _position,
-                           Team _team,
-                           int _lvl,
-                           Item* _item,
-                           int* _t,
-                           std::list<Mech*>* _mechs)
-    : Mech(_position, _team, _lvl, _item, _t, _mechs)
+MeltingPoint::MeltingPoint(Eigen::Vector2d positionArg,
+                           Team teamArg,
+                           int lvlArg,
+                           Item* itemArg,
+                           int* tArg,
+                           std::list<Mech*>* mechsArg)
+    : Mech(positionArg, teamArg, lvlArg, itemArg, tArg, mechsArg)
 {
     initValues();
 }
 
-MeltingPointUnit::MeltingPointUnit(Eigen::Vector2i _position,
-                                   Team _team,
-                                   int _lvl,
-                                   int* _t,
-                                   std::list<Mech*>* _mechs)
-    : Unit(_position, _team, _lvl, _t, _mechs)
+MeltingPointUnit::MeltingPointUnit(Eigen::Vector2i positionArg,
+                                   Team teamArg,
+                                   int lvlArg,
+                                   int* tArg,
+                                   std::list<Mech*>* mechsArg)
+    : Unit(positionArg, teamArg, lvlArg, tArg, mechsArg)
 {
 }
 
-MeltingPointMultiWeapon::MeltingPointMultiWeapon(Mech* _mech, double _relAngle)
-    : LaserWeapon(_mech, _relAngle)
+MeltingPointLaser::MeltingPointLaser(Mech* mechArg, double relAngleArg)
+    : LaserWeapon(mechArg, relAngleArg)
 {
 }
 
-MeltingPointSpawnerWeapon::MeltingPointSpawnerWeapon(Mech* _mech,
-                                                     double _relAngle)
-    : SpawnerWeapon(_mech, _relAngle)
+MeltingPointSpawnerWeapon::MeltingPointSpawnerWeapon(Mech* mechArg,
+                                                     double relAngleArg)
+    : SpawnerWeapon(mechArg, relAngleArg)
 {
     initTimer();
 }
@@ -37,12 +37,12 @@ MeltingPointSpawnerWeapon::MeltingPointSpawnerWeapon(Mech* _mech,
 std::list<std::function<Weapon*(Mech*)>> MeltingPoint::getWeaponFactory()
 {
     return {
-        [](Mech* mech) { return new MeltingPointMultiWeapon(mech, 0); },
-        // [](Mech* mech) { return new MeltingPointMultiWeapon(mech, PI / 2.0);
+        [](Mech* mech) { return new MeltingPointLaser(mech, 0); },
+        // [](Mech* mech) { return new MeltingPointLaser(mech, PI / 2.0);
         // },
-        // [](Mech* mech) { return new MeltingPointMultiWeapon(mech, -PI / 2.0);
+        // [](Mech* mech) { return new MeltingPointLaser(mech, -PI / 2.0);
         // },
-        // [](Mech* mech) { return new MeltingPointMultiWeapon(mech, PI); },
+        // [](Mech* mech) { return new MeltingPointLaser(mech, PI); },
         [](Mech* mech) { return new MeltingPointSpawnerWeapon(mech, 0); },
     };
 }
@@ -94,12 +94,12 @@ double MeltingPoint::getWeight()
 
 std::string MeltingPoint::getString()
 {
-    return std::string("MP");
+    return {"MP"};
 }
 
-Mech* MeltingPointUnit::makeMech(Eigen::Vector2d _position)
+Mech* MeltingPointUnit::makeMech(Eigen::Vector2d positionArg)
 {
-    return new MeltingPoint(_position, team, lvl, item, t, mechs);
+    return new MeltingPoint(positionArg, team, lvl, item, t, mechs);
 }
 
 int MeltingPointUnit::getCount()
@@ -109,30 +109,30 @@ int MeltingPointUnit::getCount()
 
 Eigen::Vector2i MeltingPointUnit::getBaseSize()
 {
-    return Eigen::Vector2i(4, 4);
+    return {4, 4};
 }
 
-double MeltingPointMultiWeapon::getRange()
+double MeltingPointLaser::getRange()
 {
     return 11.5;
 }
-double MeltingPointMultiWeapon::getSplash()
+double MeltingPointLaser::getSplash()
 {
     return 0.3;
 }
-double MeltingPointMultiWeapon::getAttack()
+double MeltingPointLaser::getAttack()
 {
     return 1;
 }
-double MeltingPointMultiWeapon::getChargeRate()
+double MeltingPointLaser::getChargeRate()
 {
     return 0.2;
 }
-double MeltingPointMultiWeapon::getRadius()
+double MeltingPointLaser::getRadius()
 {
     return 0;  // mechOwn->getRadius() / 3.0;
 }
-bool MeltingPointMultiWeapon::getHack()
+bool MeltingPointLaser::getHack()
 {
     return false;
 }

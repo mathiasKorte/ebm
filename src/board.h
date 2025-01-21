@@ -11,7 +11,8 @@ class Board
     std::list<Mech*> mechs;
     std::list<Mech*> mechsDead;
 
-    explicit Board(bool check);
+    Board();
+    ~Board();
     void step();
     int t = 0;
 };

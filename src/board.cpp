@@ -1,48 +1,34 @@
 #include "board.h"
 
+#include "mech.h"
 #include "mechs/arclight.h"
 #include "mechs/crawler.h"
 #include "mechs/meltingpoint.h"
+#include "unit.h"
 
-Board::Board(bool check)
+namespace
 {
-    if (check)
-        std::cout << "Board initialized \n";
-
-    units.push_back(new CrawlerUnit(
-        Eigen::Vector2i(72 / 2 - 3, 0), TEAM_RED, 1, &t, &mechs));
-    units.push_back(new CrawlerUnit(
-        Eigen::Vector2i(72 / 2 - 3, 11), TEAM_RED, 1, &t, &mechs));
-    units.push_back(
-        new CrawlerUnit(Eigen::Vector2i(21 + 2, 11), TEAM_RED, 1, &t, &mechs));
-    units.push_back(new CrawlerUnit(
-        Eigen::Vector2i(72 - 21 - 2 - 5, 11), TEAM_RED, 1, &t, &mechs));
-
-    units.push_back(
-        new ArclightUnit(Eigen::Vector2i(21, 15), TEAM_RED, 2, &t, &mechs));
-    units.push_back(new ArclightUnit(
-        Eigen::Vector2i(72 - 21 - 2, 15), TEAM_RED, 2, &t, &mechs));
-
-    units.push_back(new MeltingPointUnit(
-        Eigen::Vector2i(34 - 7 + 3, 30 + 1), TEAM_GREEN, 1, &t, &mechs));
-    units.push_back(new ArclightUnit(
-        Eigen::Vector2i(32 - 7 + 3, 32 + 1), TEAM_GREEN, 1, &t, &mechs));
-
-    for (Unit* unit : units)
-        mechsDead.splice(mechsDead.end(), unit->spawn());
-
-    for (Unit* unit : units)
-        mechs.splice(mechs.end(), unit->spawn());
-}
-
-bool deathCheck(Mech* mech)
-{
-    return !mech->alive;
-}
-
 bool checkDeath(Mech* mech)
 {
     return !mech->alive;
+}
+}  // namespace
+
+Board::Board()
+{
+    units.push_back(new CrawlerUnit(Eigen::Vector2i(33, 0), Team::red, 1, &t, &mechs));
+    units.push_back(new CrawlerUnit(Eigen::Vector2i(33, 11), Team::red, 1, &t, &mechs));
+    units.push_back(new CrawlerUnit(Eigen::Vector2i(23, 11), Team::red, 1, &t, &mechs));
+    units.push_back(new CrawlerUnit(Eigen::Vector2i(44, 11), Team::red, 1, &t, &mechs));
+
+    units.push_back(new ArclightUnit(Eigen::Vector2i(21, 15), Team::red, 2, &t, &mechs));
+    units.push_back(new ArclightUnit(Eigen::Vector2i(49, 15), Team::red, 2, &t, &mechs));
+
+    units.push_back(new MeltingPointUnit(Eigen::Vector2i(30, 31), Team::green, 1, &t, &mechs));
+    units.push_back(new ArclightUnit(Eigen::Vector2i(28, 33), Team::green, 1, &t, &mechs));
+
+    for (Unit* unit : units)
+        mechs.splice(mechs.end(), unit->spawn());
 }
 
 void Board::step()
@@ -57,4 +43,16 @@ void Board::step()
     mechs.remove_if(checkDeath);
 
     t++;
+}
+
+Board::~Board()
+{
+    for (Unit* unit : units) 
+        delete unit;
+    
+    for (Mech* mech : mechs)
+        delete mech;
+
+    for (Mech* mech : mechsDead)
+        delete mech;
 }

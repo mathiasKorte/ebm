@@ -4,13 +4,13 @@
 class Mech
 {
   public:
-    Mech(Eigen::Vector2d _position,
-         Team _team,
-         int _lvl,
-         Item* _item,
-         int* _t,
-         std::list<Mech*>* _mechs);
-    virtual ~Mech() = default;
+    Mech(Eigen::Vector2d positionArg,
+         Team teamArg,
+         int lvlArg,
+         Item* itemArg,
+         int* tArg,
+         std::list<Mech*>* mechsArg);
+    virtual ~Mech();
 
     Eigen::Vector2d position;
     Team team;
@@ -19,16 +19,16 @@ class Mech
     int* t;
     std::list<Mech*>* mechs;
 
-    double hp;
-    double hpShield;
-    double hpMax;
-    Mech* obstacle;
+    double hp=0;
+    double hpShield=0;
+    double hpMax=0;
+    Mech* obstacle=nullptr;
     std::list<Weapon*> weapons;
     bool alive = true;
-    double hackingDamage = 0.0;
+    double hackingDamage = 0;
     bool getsHacked = false;
-    double angle;
-    double blocking = 0.0;
+    double angle=0;
+    double blocking = 0;
 
     void act();
     void findObstacle();

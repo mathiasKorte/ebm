@@ -3,21 +3,27 @@
 #include "item.h"
 #include "weapon.h"
 
-Mech::Mech(Eigen::Vector2d _position,
-           Team _team,
-           int _lvl,
-           Item* _item,
-           int* _t,
-           std::list<Mech*>* _mechs)
-    : position(_position)
-    , team(_team)
-    , lvl(_lvl)
-    , item(_item)
-    , t(_t)
-    , mechs(_mechs)
+Mech::Mech(Eigen::Vector2d positionArg,
+           Team teamArg,
+           int lvlArg,
+           Item* itemArg,
+           int* tArg,
+           std::list<Mech*>* mechsArg)
+    : position(std::move(positionArg))
+    , team(teamArg)
+    , lvl(lvlArg)
+    , item(itemArg)
+    , t(tArg)
+    , mechs(mechsArg)
 
 {
     // KEEP EMPTY!
+}
+
+Mech::~Mech()
+{
+    for (Weapon* weapon : weapons)
+        delete weapon;
 }
 
 double Mech::gapToMech(Mech* mech)
@@ -34,7 +40,7 @@ double Mech::gapToPos(Eigen::Vector2d mapPos)
 
 void Mech::initValues()
 {
-    angle = (team == TEAM_GREEN) ? -PI / 2.0 : PI / 2.0;
+    angle = (team == Team::green) ? -PI / 2.0 : PI / 2.0;
 
     hpMax = getHpBase() * lvl;
     hp = hpMax;
@@ -44,7 +50,7 @@ void Mech::initValues()
     else
         hpShield = 0;
 
-    for (std::function<Weapon*(Mech*)> createWeapon : getWeaponFactory())
+    for (const std::function<Weapon*(Mech*)>& createWeapon : getWeaponFactory())
         weapons.push_back(createWeapon(this));
 }
 
@@ -65,19 +71,18 @@ void Mech::act()
 
 void Mech::move()
 {
-    Eigen::Vector2d delta_position =
-        weapons.front()->target->position - position;
+    Eigen::Vector2d deltaPosition = weapons.front()->target->position - position;
 
-    double targetAngle = std::atan2(delta_position.y(), delta_position.x());
-    double angleDiff = normalizeAngle(targetAngle - angle);
+    const double targetAngle = std::atan2(deltaPosition.y(), deltaPosition.x());
+    const double angleDiff = normalizeAngle(targetAngle - angle);
 
     if (std::abs(angleDiff) <= getTurnSpeed())
     {
         angle = targetAngle;
-        if (getSpeed() > delta_position.norm())
-            position += delta_position;
+        if (getSpeed() > deltaPosition.norm())
+            position += deltaPosition;
         else
-            position += delta_position * getSpeed() / delta_position.norm();
+            position += deltaPosition * getSpeed() / deltaPosition.norm();
     } else
     {
         angle += getTurnSpeed() * ((angleDiff < 0) ? -1 : 1);
@@ -89,25 +94,22 @@ void Mech::avoidObstacles()
 {
     findObstacle();
 
-    if (obstacle == nullptr)
-        return;
-
     for (int i = 0; (gapToMech(obstacle) < 0) && (i < GIVE_UP_OBSTACLES); i++)
     {
-        Eigen::Vector2d delta_position = obstacle->position - position;
-        double len = -gapToMech(obstacle) / (delta_position.norm()) + SMALL;
+        if(obstacle==nullptr)
+            return;
+        const Eigen::Vector2d deltaPosition = obstacle->position - position;
+        const double len = (-gapToMech(obstacle) / (deltaPosition.norm())) + SMALL;
 
-        if (((obstacle->gapToMech(obstacle->obstacle) + gapToMech(obstacle)
-              >= 0)
+        if (((obstacle->gapToMech(obstacle->obstacle) + gapToMech(obstacle) >= 0)
              && (obstacle->obstacle != this))
             || (obstacle->obstacle == this))
         {
-            double weight_ratio =
-                getWeight() / (getWeight() + obstacle->getWeight());
-            position -= delta_position * len * (1.0 - weight_ratio);
-            obstacle->position += delta_position * len * weight_ratio;
+            const double weightRatio = getWeight() / (getWeight() + obstacle->getWeight());
+            position -= deltaPosition * len * (1.0 - weightRatio);
+            obstacle->position += deltaPosition * len * weightRatio;
         } else
-            position -= delta_position * len;
+            position -= deltaPosition * len;
 
         if (gapToMech(obstacle) < 0)
             std::cout << "no success \n";
@@ -143,10 +145,10 @@ void Mech::getAttacked(double damage, bool hacking)
         hackingDamage += damage;
         if (hp < hackingDamage)
         {
-            if (team == TEAM_GREEN)
-                team = TEAM_RED;
+            if (team == Team::green)
+                team = Team::red;
             else
-                team = TEAM_GREEN;
+                team = Team::green;
         }
     } else
     {

@@ -4,28 +4,29 @@
 class Unit
 {
   public:
-    Unit(Eigen::Vector2i _position,
-         Team _team,
-         int _lvl,
-         int* _t,
-         std::list<Mech*>* _mechs);
-    virtual ~Unit() = default;
+    Unit(Eigen::Vector2i positionArg,
+         Team teamArg,
+         int lvlArg,
+         int* tArg,
+         std::list<Mech*>* mechsArg);
+    virtual ~Unit();
 
-    double experience;
+    Eigen::Vector2i position;
+    Team team;
     int lvl;
     int* t;
-    bool transposed = false;
-    void* mechContr;
-    Team team;
-    Item* item;
-    Eigen::Vector2i position;
     std::list<Mech*>* mechs;
+
+    Item* item;
+    double experience = 0;
+    bool transposed = false;
+    
 
     void lvlUp();
     std::list<Mech*> spawn();
     Eigen::Vector2i getSize();
 
-    virtual Mech* makeMech(Eigen::Vector2d _position) = 0;
+    virtual Mech* makeMech(Eigen::Vector2d positionArg) = 0;
     virtual int getCount() = 0;
     virtual Eigen::Vector2i getBaseSize() = 0;
 };
