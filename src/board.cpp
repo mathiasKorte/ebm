@@ -47,9 +47,9 @@ void Board::step()
 
 Board::~Board()
 {
-    for (Unit* unit : units) 
+    for (Unit* unit : units)
         delete unit;
-    
+
     for (Mech* mech : mechs)
         delete mech;
 

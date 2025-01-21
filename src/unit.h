@@ -20,7 +20,6 @@ class Unit
     Item* item;
     double experience = 0;
     bool transposed = false;
-    
 
     void lvlUp();
     std::list<Mech*> spawn();

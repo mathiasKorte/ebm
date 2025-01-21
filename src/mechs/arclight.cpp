@@ -50,11 +50,8 @@ std::list<std::function<Weapon*(Mech*)>> Arclight::getWeaponFactory()
     };
 }
 
-ArclightUnit::ArclightUnit(Eigen::Vector2i positionArg,
-                           Team teamArg,
-                           int lvlArg,
-                           int* tArg,
-                           std::list<Mech*>* mechsArg)
+ArclightUnit::ArclightUnit(
+    Eigen::Vector2i positionArg, Team teamArg, int lvlArg, int* tArg, std::list<Mech*>* mechsArg)
     : Unit(positionArg, teamArg, lvlArg, tArg, mechsArg)
 {
 }
@@ -108,12 +105,8 @@ int ArclightWeapon::getAimTime()
 }
 Mech* ArclightWeapon::makeMech()
 {
-    return new ArclightShot(getPosition() * 1.0001,
-                            mechOwn->team,
-                            mechOwn->lvl,
-                            nullptr,
-                            mechOwn->t,
-                            mechOwn->mechs);
+    return new ArclightShot(
+        getPosition() * 1.0001, mechOwn->team, mechOwn->lvl, nullptr, mechOwn->t, mechOwn->mechs);
 }
 
 ArclightShot::ArclightShot(Eigen::Vector2d positionArg,

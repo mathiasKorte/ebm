@@ -11,11 +11,8 @@ Crawler::Crawler(Eigen::Vector2d positionArg,
     initValues();
 }
 
-CrawlerUnit::CrawlerUnit(Eigen::Vector2i positionArg,
-                         Team teamArg,
-                         int lvlArg,
-                         int* tArg,
-                         std::list<Mech*>* mechsArg)
+CrawlerUnit::CrawlerUnit(
+    Eigen::Vector2i positionArg, Team teamArg, int lvlArg, int* tArg, std::list<Mech*>* mechsArg)
     : Unit(positionArg, teamArg, lvlArg, tArg, mechsArg)
 {
 }

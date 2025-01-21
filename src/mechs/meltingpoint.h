@@ -33,7 +33,7 @@ class MeltingPointUnit : public Unit
                      int lvlArg,
                      int* tArg,
                      std::list<Mech*>* mechsArg);
-~MeltingPointUnit() override= default;
+    ~MeltingPointUnit() override = default;
     int getCount() override;
     Mech* makeMech(Eigen::Vector2d positionArg) override;
     Eigen::Vector2i getBaseSize() override;

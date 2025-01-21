@@ -19,15 +19,15 @@ class Mech
     int* t;
     std::list<Mech*>* mechs;
 
-    double hp=0;
-    double hpShield=0;
-    double hpMax=0;
-    Mech* obstacle=nullptr;
+    double hp = 0;
+    double hpShield = 0;
+    double hpMax = 0;
+    Mech* obstacle = nullptr;
     std::list<Weapon*> weapons;
     bool alive = true;
     double hackingDamage = 0;
     bool getsHacked = false;
-    double angle=0;
+    double angle = 0;
     double blocking = 0;
 
     void act();

@@ -14,11 +14,11 @@ class Gui : public QWidget
 {
   public:
     Board* board;
-    QTimer* timer=nullptr;
+    QTimer* timer = nullptr;
     Mech* focusedMech = nullptr;
-    double zoomScale=1;
+    double zoomScale = 1;
     Eigen::Vector2d zoomShift;
-    double windowScale=1;
+    double windowScale = 1;
     Eigen::Vector2d windowShift;
     Eigen::Vector2i windowSize;
 
@@ -26,7 +26,7 @@ class Gui : public QWidget
     ~Gui() override;
     void paintEvent(QPaintEvent* event) override;
     void onUpdate();
-    void resizeEvent(QResizeEvent* event)override;
+    void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
 
     void calcZoom(bool zoom);
@@ -39,10 +39,10 @@ class Gui : public QWidget
 
     void drawLineFromVectors(QPainter& painter,
                              Eigen::Vector2d point1,
-                             Eigen::Vector2d point2)const;
+                             Eigen::Vector2d point2) const;
     void drawRectFromVectors(QPainter& painter,
                              Eigen::Vector2d point1,
-                             Eigen::Vector2d point2)const;
+                             Eigen::Vector2d point2) const;
 
     void drawBoard();
     void drawUnits();

@@ -13,11 +13,8 @@ MeltingPoint::MeltingPoint(Eigen::Vector2d positionArg,
     initValues();
 }
 
-MeltingPointUnit::MeltingPointUnit(Eigen::Vector2i positionArg,
-                                   Team teamArg,
-                                   int lvlArg,
-                                   int* tArg,
-                                   std::list<Mech*>* mechsArg)
+MeltingPointUnit::MeltingPointUnit(
+    Eigen::Vector2i positionArg, Team teamArg, int lvlArg, int* tArg, std::list<Mech*>* mechsArg)
     : Unit(positionArg, teamArg, lvlArg, tArg, mechsArg)
 {
 }
@@ -27,8 +24,7 @@ MeltingPointLaser::MeltingPointLaser(Mech* mechArg, double relAngleArg)
 {
 }
 
-MeltingPointSpawnerWeapon::MeltingPointSpawnerWeapon(Mech* mechArg,
-                                                     double relAngleArg)
+MeltingPointSpawnerWeapon::MeltingPointSpawnerWeapon(Mech* mechArg, double relAngleArg)
     : SpawnerWeapon(mechArg, relAngleArg)
 {
     initTimer();
@@ -49,12 +45,8 @@ std::list<std::function<Weapon*(Mech*)>> MeltingPoint::getWeaponFactory()
 
 Mech* MeltingPointSpawnerWeapon::makeMech()
 {
-    return new Crawler(getPosition() * 1.0001,
-                       mechOwn->team,
-                       1,
-                       nullptr,
-                       mechOwn->t,
-                       mechOwn->mechs);
+    return new Crawler(
+        getPosition() * 1.0001, mechOwn->team, 1, nullptr, mechOwn->t, mechOwn->mechs);
 }
 
 double MeltingPoint::getHpBase()

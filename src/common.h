@@ -26,9 +26,7 @@ class SpawnerWeapon;
 class ExplosionWeapon;
 
 double normalizeAngle(double rad);
-Eigen::Vector2d clampVector(Eigen::Vector2d vec,
-                            Eigen::Vector2d min,
-                            Eigen::Vector2d max);
+Eigen::Vector2d clampVector(Eigen::Vector2d vec, Eigen::Vector2d min, Eigen::Vector2d max);
 
 class MyTimer
 {
@@ -37,8 +35,8 @@ class MyTimer
     void step();
     void reset();
     int timeMax;
-    bool done=false;
-    int time=0;
+    bool done = false;
+    int time = 0;
 };
 
 enum class Team : std::uint8_t

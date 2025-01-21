@@ -96,7 +96,7 @@ void Mech::avoidObstacles()
 
     for (int i = 0; (gapToMech(obstacle) < 0) && (i < GIVE_UP_OBSTACLES); i++)
     {
-        if(obstacle==nullptr)
+        if (obstacle == nullptr)
             return;
         const Eigen::Vector2d deltaPosition = obstacle->position - position;
         const double len = (-gapToMech(obstacle) / (deltaPosition.norm())) + SMALL;
