@@ -17,18 +17,6 @@ include(cmake/variables.cmake)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-add_library(
-    ebm_lib OBJECT
-    src/lib.cpp
-)
-
-target_include_directories(
-    ebm_lib ${warning_guard}
-    PUBLIC
-    "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>"
-)
-
-target_compile_features(ebm_lib PUBLIC cxx_std_11)
 
 # ---- Declare executable ----
 
@@ -39,7 +27,6 @@ set_property(TARGET ebm_exe PROPERTY OUTPUT_NAME ebm)
 
 target_compile_features(ebm_exe PRIVATE cxx_std_11)
 
-target_link_libraries(ebm_exe PRIVATE ebm_lib)
 target_link_libraries(ebm_exe PRIVATE Qt6::Core Qt6::Widgets)
 
 # ---- Install rules ----
