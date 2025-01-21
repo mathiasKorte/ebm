@@ -59,6 +59,7 @@
             <li>
               Reference
               <ul>
+                <li><a href="#pub-static-methods">Public static functions</a></li>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
                 <li><a href="#pub-methods">Public functions</a></li>
                 <li><a href="#pub-attribs">Public variables</a></li>
@@ -66,11 +67,28 @@
             </li>
           </ul>
         </div>
+        <section id="pub-static-methods">
+          <h2><a href="#pub-static-methods">Public static functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a0ae0a0e3e0f3baad948ebe9542fc682b">
+              <span class="m-doc-wrap-bumper">static auto <a href="#a0ae0a0e3e0f3baad948ebe9542fc682b" class="m-doc-self">convertAngle</a>(</span><span class="m-doc-wrap">double angle) -&gt; double</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0aa5545f2ba1016b03159ea4864b65cf">
+              <span class="m-doc-wrap-bumper">static auto <a href="#a0aa5545f2ba1016b03159ea4864b65cf" class="m-doc-self">int1</a>(</span><span class="m-doc-wrap">double value) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a521dc5041de064b7d972eac5f9e4efbd">
-              <span class="m-doc-wrap-bumper"><a href="#a521dc5041de064b7d972eac5f9e4efbd" class="m-doc-self">Gui</a>(</span><span class="m-doc-wrap"><a href="classBoard.html" class="m-doc">Board</a>* _board)</span>
+            <dt id="a9381adfbed9b4cadcb3b6f74c6fcce03">
+              <span class="m-doc-wrap-bumper"><a href="#a9381adfbed9b4cadcb3b6f74c6fcce03" class="m-doc-self">Gui</a>(</span><span class="m-doc-wrap"><a href="classBoard.html" class="m-doc">Board</a>* boardArg) <span class="m-label m-flat m-info">explicit</span> </span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac78a879035ddcf9e08d55e4e21de5106">
+              <span class="m-doc-wrap-bumper"><a href="#ac78a879035ddcf9e08d55e4e21de5106" class="m-doc-self">~Gui</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">override</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -78,57 +96,53 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a9bfe762f222d5a14de5271b7ef3b6c1f">
-              <span class="m-doc-wrap-bumper">void <a href="#a9bfe762f222d5a14de5271b7ef3b6c1f" class="m-doc-self">paintEvent</a>(</span><span class="m-doc-wrap">QPaintEvent*) <span class="m-label m-flat m-warning">override</span></span>
+            <dt id="a1dea28fe4413bc0a8b9917879745a4a7">
+              <span class="m-doc-wrap-bumper">void <a href="#a1dea28fe4413bc0a8b9917879745a4a7" class="m-doc-self">paintEvent</a>(</span><span class="m-doc-wrap">QPaintEvent* event) <span class="m-label m-flat m-warning">override</span></span>
             </dt>
             <dd><span></span></dd>
             <dt id="a089d8466870913413364ed792dc72b03">
               <span class="m-doc-wrap-bumper">void <a href="#a089d8466870913413364ed792dc72b03" class="m-doc-self">onUpdate</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a9a0bdf1a4a9a44e7eb1aa3af2346963c">
-              <span class="m-doc-wrap-bumper">void <a href="#a9a0bdf1a4a9a44e7eb1aa3af2346963c" class="m-doc-self">resizeEvent</a>(</span><span class="m-doc-wrap">QResizeEvent* event)</span>
+            <dt id="a60081e936345916abfb8c88f0979a959">
+              <span class="m-doc-wrap-bumper">void <a href="#a60081e936345916abfb8c88f0979a959" class="m-doc-self">resizeEvent</a>(</span><span class="m-doc-wrap">QResizeEvent* event) <span class="m-label m-flat m-warning">override</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="ae879a7891d112a72fb3313fa926577a4">
-              <span class="m-doc-wrap-bumper">void <a href="#ae879a7891d112a72fb3313fa926577a4" class="m-doc-self">mousePressEvent</a>(</span><span class="m-doc-wrap">QMouseEvent* event)</span>
+            <dt id="ac98bbd75a1f8a129739b7d81dcd9894f">
+              <span class="m-doc-wrap-bumper">void <a href="#ac98bbd75a1f8a129739b7d81dcd9894f" class="m-doc-self">mousePressEvent</a>(</span><span class="m-doc-wrap">QMouseEvent* event) <span class="m-label m-flat m-warning">override</span></span>
             </dt>
             <dd><span></span></dd>
             <dt id="add52bbde65d5f9a9ce29c1626a0fb3b8">
               <span class="m-doc-wrap-bumper">void <a href="#add52bbde65d5f9a9ce29c1626a0fb3b8" class="m-doc-self">calcZoom</a>(</span><span class="m-doc-wrap">bool zoom)</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a106f3e127eaee7c39b1061b04d9bd715">
-              <span class="m-doc-wrap-bumper">auto <a href="#a106f3e127eaee7c39b1061b04d9bd715" class="m-doc-self">convAngle</a>(</span><span class="m-doc-wrap">double angle) -&gt; double</span>
+            <dt id="a614f828638e00c6e67fa6724827cbe04">
+              <span class="m-doc-wrap-bumper">auto <a href="#a614f828638e00c6e67fa6724827cbe04" class="m-doc-self">convertPoint</a>(</span><span class="m-doc-wrap">Eigen::Vector2d vec) const -&gt; QPoint</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a473ac8ca996cae177a498218aeb8f437">
-              <span class="m-doc-wrap-bumper">auto <a href="#a473ac8ca996cae177a498218aeb8f437" class="m-doc-self">convPoint</a>(</span><span class="m-doc-wrap">Eigen::Vector2d vec) -&gt; QPoint</span>
+            <dt id="ab3dab9e86535ba1a831893f34de6c8d8">
+              <span class="m-doc-wrap-bumper">auto <a href="#ab3dab9e86535ba1a831893f34de6c8d8" class="m-doc-self">getScale</a>(</span><span class="m-doc-wrap">) const -&gt; double</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="aebf526c0fcd1ff7c05024ef631134df6">
-              <span class="m-doc-wrap-bumper">auto <a href="#aebf526c0fcd1ff7c05024ef631134df6" class="m-doc-self">getScale</a>(</span><span class="m-doc-wrap">) -&gt; double</span>
+            <dt id="aef6790946e6ae09c9a0d7651d65a54a2">
+              <span class="m-doc-wrap-bumper">auto <a href="#aef6790946e6ae09c9a0d7651d65a54a2" class="m-doc-self">getShift</a>(</span><span class="m-doc-wrap">) const -&gt; Eigen::Vector2d</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="ad9e1045783abd813b6e6ff69c3050ca1">
-              <span class="m-doc-wrap-bumper">auto <a href="#ad9e1045783abd813b6e6ff69c3050ca1" class="m-doc-self">getShift</a>(</span><span class="m-doc-wrap">) -&gt; Eigen::Vector2d</span>
+            <dt id="ad17a602e436fcbd2df3b5ae8dd16b7fb">
+              <span class="m-doc-wrap-bumper">auto <a href="#ad17a602e436fcbd2df3b5ae8dd16b7fb" class="m-doc-self">distQtMech</a>(</span><span class="m-doc-wrap">QPoint qtPoint,
+              <a href="classMech.html" class="m-doc">Mech</a>* mech) const -&gt; double</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a9508052b1004ef8f67e260191657a7c3">
-              <span class="m-doc-wrap-bumper">auto <a href="#a9508052b1004ef8f67e260191657a7c3" class="m-doc-self">distQtMech</a>(</span><span class="m-doc-wrap">QPoint qt,
-              <a href="classMech.html" class="m-doc">Mech</a>* mech) -&gt; double</span>
+            <dt id="a4b5f6d6dd0b3de52531345a2dce7858a">
+              <span class="m-doc-wrap-bumper">void <a href="#a4b5f6d6dd0b3de52531345a2dce7858a" class="m-doc-self">drawLineFromVectors</a>(</span><span class="m-doc-wrap">QPainter&amp; painter,
+              Eigen::Vector2d point1,
+              Eigen::Vector2d point2) const</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="af1b01aa85cb0626bf13c8b08a364f9ca">
-              <span class="m-doc-wrap-bumper">void <a href="#af1b01aa85cb0626bf13c8b08a364f9ca" class="m-doc-self">drawLineFromVectors</a>(</span><span class="m-doc-wrap">QPainter&amp; painter,
-              Eigen::Vector2d p1,
-              Eigen::Vector2d p2)</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a7dcf813e3264b5b8bfecb0bcbabb5b98">
-              <span class="m-doc-wrap-bumper">void <a href="#a7dcf813e3264b5b8bfecb0bcbabb5b98" class="m-doc-self">drawRectFromVectors</a>(</span><span class="m-doc-wrap">QPainter&amp; painter,
-              Eigen::Vector2d p1,
-              Eigen::Vector2d p2)</span>
+            <dt id="a7c929ddd2c8c895b5f9a5c93bcaa777f">
+              <span class="m-doc-wrap-bumper">void <a href="#a7c929ddd2c8c895b5f9a5c93bcaa777f" class="m-doc-self">drawRectFromVectors</a>(</span><span class="m-doc-wrap">QPainter&amp; painter,
+              Eigen::Vector2d point1,
+              Eigen::Vector2d point2) const</span>
             </dt>
             <dd><span></span></dd>
             <dt id="a50a117e65e762dfff2914e585cd7e869">
@@ -180,8 +194,8 @@
               Eigen::Vector2d <a href="#ae7dc56bf3daabef37ae5dc4f7353714c" class="m-doc-self">windowShift</a>
             </dt>
             <dd><span></span></dd>
-            <dt id="a31557a2e2d626d99af144d90c4d8c549">
-              Eigen::Vector2d <a href="#a31557a2e2d626d99af144d90c4d8c549" class="m-doc-self">windowSize</a>
+            <dt id="a03cddfb5e393930acca56db4a384d525">
+              Eigen::Vector2i <a href="#a03cddfb5e393930acca56db4a384d525" class="m-doc-self">windowSize</a>
             </dt>
             <dd><span></span></dd>
           </dl>

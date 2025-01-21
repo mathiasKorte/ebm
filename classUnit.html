@@ -87,16 +87,16 @@
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="aaed12f5f99cf13b7ba4e1622a065977b">
-              <span class="m-doc-wrap-bumper"><a href="#aaed12f5f99cf13b7ba4e1622a065977b" class="m-doc-self">Unit</a>(</span><span class="m-doc-wrap">Eigen::Vector2i _position,
-              <a href="common_8h.html#a9c13bb5b1d69698f9b47900990eaa598" class="m-doc">Team</a> _team,
-              int _lvl,
-              int* _t,
-              std::list&lt;<a href="classMech.html" class="m-doc">Mech</a>*&gt;* _mechs)</span>
+            <dt id="a04a8d21965b2c775402417b57ca8d0a0">
+              <span class="m-doc-wrap-bumper"><a href="#a04a8d21965b2c775402417b57ca8d0a0" class="m-doc-self">Unit</a>(</span><span class="m-doc-wrap">Eigen::Vector2i positionArg,
+              <a href="common_8h.html#a5c3789295da4aeff0a6f81956c1acd84" class="m-doc">Team</a> teamArg,
+              int lvlArg,
+              int* tArg,
+              std::list&lt;<a href="classMech.html" class="m-doc">Mech</a>*&gt;* mechsArg)</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a33361af029acdb5177052f40e6d4b18f">
-              <span class="m-doc-wrap-bumper"><a href="#a33361af029acdb5177052f40e6d4b18f" class="m-doc-self">~Unit</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
+            <dt id="a6353fc4c0a329997ad4abcf0dcb4eb27">
+              <span class="m-doc-wrap-bumper"><a href="#a6353fc4c0a329997ad4abcf0dcb4eb27" class="m-doc-self">~Unit</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -116,8 +116,8 @@
               <span class="m-doc-wrap-bumper">auto <a href="#a2fc53b11f2983f8b215fb0e053d3433f" class="m-doc-self">getSize</a>(</span><span class="m-doc-wrap">) -&gt; Eigen::Vector2i</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a486db0f2d494b271ff10daf0e588378f">
-              <span class="m-doc-wrap-bumper">auto <a href="#a486db0f2d494b271ff10daf0e588378f" class="m-doc-self">makeMech</a>(</span><span class="m-doc-wrap">Eigen::Vector2d _position) -&gt; <a href="classMech.html" class="m-doc">Mech</a>* <span class="m-label m-flat m-warning">pure virtual</span></span>
+            <dt id="a3cef2ae055536e1df51511bbd41ef75c">
+              <span class="m-doc-wrap-bumper">auto <a href="#a3cef2ae055536e1df51511bbd41ef75c" class="m-doc-self">makeMech</a>(</span><span class="m-doc-wrap">Eigen::Vector2d positionArg) -&gt; <a href="classMech.html" class="m-doc">Mech</a>* <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
             <dd><span></span></dd>
             <dt id="a8fcdeb9659bfe4aa8e211eeea20a01de">
@@ -133,8 +133,12 @@
         <section id="pub-attribs">
           <h2><a href="#pub-attribs">Public variables</a></h2>
           <dl class="m-doc">
-            <dt id="ad60095d524a7bcab67f25988a43ef25a">
-              double <a href="#ad60095d524a7bcab67f25988a43ef25a" class="m-doc-self">experience</a>
+            <dt id="a77967776a3b31b1bf595cc5c0e52ab3d">
+              Eigen::Vector2i <a href="#a77967776a3b31b1bf595cc5c0e52ab3d" class="m-doc-self">position</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a471c069016520ac7a7ed9d4025d2b48b">
+              <a href="common_8h.html#a5c3789295da4aeff0a6f81956c1acd84" class="m-doc">Team</a> <a href="#a471c069016520ac7a7ed9d4025d2b48b" class="m-doc-self">team</a>
             </dt>
             <dd><span></span></dd>
             <dt id="a50dc87769d55e7c7573a519a795cb96b">
@@ -145,28 +149,20 @@
               int* <a href="#a1b9fd1eb82c87da902852514a472f4a0" class="m-doc-self">t</a>
             </dt>
             <dd><span></span></dd>
-            <dt id="a52f2aed114479d29b46bb29ef00474b8">
-              bool <a href="#a52f2aed114479d29b46bb29ef00474b8" class="m-doc-self">transposed</a>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a4d80c1af0297d982bf9bac1fc6134f66">
-              void* <a href="#a4d80c1af0297d982bf9bac1fc6134f66" class="m-doc-self">mechContr</a>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a471c069016520ac7a7ed9d4025d2b48b">
-              <a href="common_8h.html#a9c13bb5b1d69698f9b47900990eaa598" class="m-doc">Team</a> <a href="#a471c069016520ac7a7ed9d4025d2b48b" class="m-doc-self">team</a>
+            <dt id="a5e5cc4b2da4e4e33e94a82b129063af8">
+              std::list&lt;<a href="classMech.html" class="m-doc">Mech</a>*&gt;* <a href="#a5e5cc4b2da4e4e33e94a82b129063af8" class="m-doc-self">mechs</a>
             </dt>
             <dd><span></span></dd>
             <dt id="a18a4475794106a3bbe8733be72821f7d">
               <a href="classItem.html" class="m-doc">Item</a>* <a href="#a18a4475794106a3bbe8733be72821f7d" class="m-doc-self">item</a>
             </dt>
             <dd><span></span></dd>
-            <dt id="a77967776a3b31b1bf595cc5c0e52ab3d">
-              Eigen::Vector2i <a href="#a77967776a3b31b1bf595cc5c0e52ab3d" class="m-doc-self">position</a>
+            <dt id="ad60095d524a7bcab67f25988a43ef25a">
+              double <a href="#ad60095d524a7bcab67f25988a43ef25a" class="m-doc-self">experience</a>
             </dt>
             <dd><span></span></dd>
-            <dt id="a5e5cc4b2da4e4e33e94a82b129063af8">
-              std::list&lt;<a href="classMech.html" class="m-doc">Mech</a>*&gt;* <a href="#a5e5cc4b2da4e4e33e94a82b129063af8" class="m-doc-self">mechs</a>
+            <dt id="a52f2aed114479d29b46bb29ef00474b8">
+              bool <a href="#a52f2aed114479d29b46bb29ef00474b8" class="m-doc-self">transposed</a>
             </dt>
             <dd><span></span></dd>
           </dl>
