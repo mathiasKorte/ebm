@@ -5,6 +5,7 @@
 #include <QResizeEvent>
 #include <QScreen>
 #include <QTimer>
+#include <QElapsedTimer> 
 #include <QWidget>
 
 #include "board.h"
