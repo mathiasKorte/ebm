@@ -1,8 +1,8 @@
 #pragma once
-#include "common.h"
-#include "mech.h"
-#include "unit.h"
-#include "weapon.h"
+#include "../common.h"
+#include "../mech.h"
+#include "../unit.h"
+#include "../weapon.h"
 
 class Arclight : public Mech
 {

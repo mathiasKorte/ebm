@@ -1,6 +1,13 @@
 #pragma once
 #include "common.h"
 
+/**
+ * @brief Represents each attacking entity in the game.
+ *
+ * Each Mech has a list of Weapons, while Weapons do the actual attacking (of other Mechs). This can
+ * be done by 1) Laser, 2) Melee, 3) Spawner, or 4) Explosion Weapons; which are all subclasses of
+ * Weapon.
+ */
 class Weapon
 {
   public:
@@ -33,6 +40,12 @@ class Weapon
     virtual double getAngleSize() = 0;
 };
 
+/**
+ * @brief Direct growing damage weapon.
+ *
+ * Inherits from Weapon. Attacks do direct damage to the target Mech; damage grows over time. Meant
+ * for MeltingPoints, Steelballs, and (maybe?) Hackers.
+ */
 class LaserWeapon : public Weapon
 {
   public:
@@ -49,6 +62,12 @@ class LaserWeapon : public Weapon
     virtual double getChargeRate() = 0;
 };
 
+/**
+ * @brief Close range weapon.
+ *
+ * Inherits from Weapon. Attacks do direct damage to the target Mech. Meant for Crawlers, Rhinos and
+ * Worms.
+ */
 class MeleeWeapon : public Weapon
 {
   public:
@@ -69,6 +88,13 @@ class MeleeWeapon : public Weapon
     virtual int getAimTime() = 0;
 };
 
+/**
+ * @brief Cannon/Spawner weapon.
+ *
+ * Inherits from Weapon. Multi-purpose: 1) gun (shoots bullets), 2) missile-launcher (shoots
+ * rockets), or 3) spawner (spawns Crawlers, etc). (This works because all moving elements in the
+ * game are Mechs.)
+ */
 class SpawnerWeapon : public Weapon
 {
   public:
@@ -92,6 +118,11 @@ class SpawnerWeapon : public Weapon
     virtual Mech* makeMech() = 0;
 };
 
+/**
+ * @brief Explosion/Impact/Suicide weapon.
+ *
+ * Inherits from Weapon. Meant for everthing exploding like rockets, Rhinos or Arclight-bullets.
+ */
 class ExplosionWeapon : public Weapon
 {
   public:

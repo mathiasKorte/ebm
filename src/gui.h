@@ -11,6 +11,11 @@
 #include "board.h"
 #include "common.h"
 
+/**
+ * @brief Visual Interface.
+ *
+ * Shows the game board and all the Mechs on it. Maybe some Buttons and Labels in the future.
+ */
 class Gui : public QWidget
 {
   public:
