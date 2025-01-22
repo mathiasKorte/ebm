@@ -18,17 +18,10 @@ Explorator Belli Mechani (ebm) is a Monte-Carlo-based engine/simulator/analyzer 
 See [here](https://mathiaskorte.github.io/ebm/annotated.html).
 
 ### Building and installing
-
 See the [BUILDING](BUILDING.md) document.
 
 ### Contributing
-
 See the [CONTRIBUTING](CONTRIBUTING.md) document.
 
-<!-- ### Licensing -->
-
-<!--
-Please go to https://choosealicense.com/licenses/ and choose a license that
-fits your needs. The recommended license for a project of this type is the
-GNU AGPLv3.
--->
+### License
+This project is licensed under the terms of the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
