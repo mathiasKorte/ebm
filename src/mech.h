@@ -5,8 +5,8 @@
  * @brief The core class representing each moving entity in the game.
  *
  * Each moving entity in the game is a Mech. Crawlers, MeltingPoints, and Arclights are all
- * subclasses of Mech. Same goes for all rockets and bullets. Mainly Mechs can 1) move, 2) be attacked,
- * 3) carry Weapons. (While Weapons do the actual attacking.)
+ * subclasses of Mech. Same goes for all rockets and bullets. Mainly Mechs can 1) move, 2) be
+ * attacked, 3) carry Weapons. (While Weapons do the actual attacking.)
  */
 
 class Mech

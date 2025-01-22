@@ -7,7 +7,8 @@
 /**
  * @brief The class representing the game board.
  *
- * It contains all the Mechs and Units in the game. In the future, it will also manige ground effects like fire or oil.
+ * It contains all the Mechs and Units in the game. In the future, it will also manige ground
+ * effects like fire or oil.
  */
 class Board
 {

@@ -121,7 +121,7 @@ class SpawnerWeapon : public Weapon
 /**
  * @brief Explosion/Impact/Suicide weapon.
  *
- * Inherits from Weapon. Meant for everthing exploding like rockets, Rhinos or Arclight-bullets.
+ * Inherits from Weapon. Meant for everything exploding like rockets, Rhinos or Arclight-bullets.
  */
 class ExplosionWeapon : public Weapon
 {

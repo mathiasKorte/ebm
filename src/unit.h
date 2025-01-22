@@ -2,7 +2,7 @@
 #include "common.h"
 
 /**
- * @brief The standart groups of Mechs.
+ * @brief The standard groups of Mechs.
  *
  * Manage the spawning of Mechs, their Items, and their experience.
  */

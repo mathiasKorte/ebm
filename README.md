@@ -7,7 +7,7 @@ Explorator Belli Mechani (ebm) is a Monte-Carlo-based engine/simulator/analyzer 
 |------|-------------|
 | ![](https://img.shields.io/badge/yes-green?style=flat-square)  | Build basic game mechanics |
 | ![](https://img.shields.io/badge/wip-yellow?style=flat-square) | Reproduce the core game |
-| ![](https://img.shields.io/badge/n_o-red?style=flat-square)    | Explore best moves by trying all/many possiblities|
+| ![](https://img.shields.io/badge/n_o-red?style=flat-square)    | Explore best moves by trying all/many possibilities|
 | ![](https://img.shields.io/badge/n_o-red?style=flat-square)    | Add mutli-processing, possibly on GPU using CUDA |
 | ![](https://img.shields.io/badge/n_o-red?style=flat-square)    | Reinforcement Learning |
 
