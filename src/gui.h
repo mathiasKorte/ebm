@@ -1,11 +1,11 @@
 #pragma once
 #include <QApplication>
+#include <QElapsedTimer>
 #include <QImage>
 #include <QPainter>
 #include <QResizeEvent>
 #include <QScreen>
 #include <QTimer>
-#include <QElapsedTimer> 
 #include <QWidget>
 
 #include "board.h"
